@@ -24,7 +24,7 @@ jobs:
         # prerequisites
         python -m pip install --upgrade pip wheel
         python -m pip install codecov coverage flake8 pytest
-        python -m pip install  -r /tests/requirements.txt
+        python -m pip install -r tests/requirements.txt
         # install dependencies
         pip install -e .
         # show installed packages
