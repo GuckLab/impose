@@ -1,0 +1,420 @@
+{
+ "structure composite stack": {
+  "composites": [
+   {
+    "layers": [
+     {
+      "label": "central canal",
+      "point_um": 2.0,
+      "geometry": [
+       [
+        "Circle",
+        {
+         "x": 36.4089943529499,
+         "y": 36.530869094697046,
+         "r": 2.4276690764992273,
+         "phi": 0.0,
+         "point_um": 2.0
+        },
+        1
+       ]
+      ],
+      "color": [
+       127,
+       197,
+       255
+      ]
+     },
+     {
+      "label": "notocord",
+      "point_um": 2.0,
+      "geometry": [
+       [
+        "Ellipse",
+        {
+         "x": 36.923097023002335,
+         "y": 70.89427533902911,
+         "a": 16.40596139270449,
+         "b": 24.71611482804263,
+         "phi": 0.0,
+         "point_um": 2.0
+        },
+        1
+       ]
+      ],
+      "color": [
+       255,
+       127,
+       190
+      ]
+     },
+     {
+      "label": "spinal chord",
+      "point_um": 2.0,
+      "geometry": [
+       [
+        "Polygon",
+        {
+         "points": [
+          [
+           56.028074690589605,
+           6.9713714210273
+          ],
+          [
+           37.64914861381625,
+           1.1909027355905124
+          ],
+          [
+           19.12200539126246,
+           4.155245651199124
+          ],
+          [
+           12.007582393801796,
+           23.275257456874645
+          ],
+          [
+           5.904505484792309,
+           41.85367874087936
+          ],
+          [
+           13.341536705825673,
+           67.14753260788203
+          ],
+          [
+           62.9587919298999,
+           67.11073007590556
+          ],
+          [
+           66.55149204100017,
+           50.69542942625426
+          ],
+          [
+           64.86698546432929,
+           32.298330178220645
+          ]
+         ],
+         "point_um": 2.0
+        },
+        1
+       ]
+      ],
+      "color": [
+       85,
+       255,
+       0,
+       255
+      ]
+     },
+     {
+      "label": "zany rectangle",
+      "point_um": 2.0,
+      "geometry": [
+       [
+        "Rectangle",
+        {
+         "x": 36.36867992837945,
+         "y": 21.55162269051548,
+         "a": 27.81239989768493,
+         "b": 13.40340554473504,
+         "phi": 5.722910019568157,
+         "point_um": 2.0
+        },
+        1
+       ]
+      ],
+      "color": [
+       255,
+       85,
+       0,
+       255
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "collection": {
+  "paths": [
+   "brillouin.h5"
+  ],
+  "data sources": [
+   {
+    "path": "brillouin.h5",
+    "metadata": {
+     "blend": {
+      "mode": "rgb",
+      "channels": [
+       "BrillouinShift"
+      ]
+     },
+     "channels": {
+      "BrillouinShift": {
+       "name": "BrillouinShift",
+       "brightness": 127,
+       "contrast": 127,
+       "slice_width": 1,
+       "reduce_method": null,
+       "hue": 0
+      },
+      "intensity": {
+       "name": "intensity",
+       "brightness": 127,
+       "contrast": 127,
+       "slice_width": 1,
+       "reduce_method": null,
+       "hue": 63
+      },
+      "peaksBrillouin_fwhm": {
+       "name": "peaksBrillouin_fwhm",
+       "brightness": 127,
+       "contrast": 127,
+       "slice_width": 1,
+       "reduce_method": null,
+       "hue": 127
+      },
+      "times": {
+       "name": "times",
+       "brightness": 127,
+       "contrast": 127,
+       "slice_width": 1,
+       "reduce_method": null,
+       "hue": 191
+      }
+     },
+     "slice": {
+      "view plane": [
+       1,
+       2
+      ],
+      "cut axis": 0,
+      "view slice": 0
+     },
+     "stack": {
+      "pixel size x": NaN,
+      "pixel size y": 2.0,
+      "pixel size z": 2.0,
+      "shape": [
+       1,
+       51,
+       71
+      ],
+      "channel hues": {
+       "BrillouinShift": 0,
+       "intensity": 63,
+       "peaksBrillouin_fwhm": 127,
+       "times": 191
+      }
+     }
+    }
+   }
+  ]
+ },
+ "colocalization": {
+  "paths": [
+   "brillouin.h5"
+  ],
+  "data sources": [
+   {
+    "path": "brillouin.h5",
+    "metadata": {
+     "blend": {
+      "mode": "rgb",
+      "channels": [
+       "BrillouinShift"
+      ]
+     },
+     "channels": {
+      "BrillouinShift": {
+       "name": "BrillouinShift",
+       "brightness": 127,
+       "contrast": 127,
+       "slice_width": 1,
+       "reduce_method": null,
+       "hue": 0
+      },
+      "intensity": {
+       "name": "intensity",
+       "brightness": 127,
+       "contrast": 127,
+       "slice_width": 1,
+       "reduce_method": null,
+       "hue": 63
+      },
+      "peaksBrillouin_fwhm": {
+       "name": "peaksBrillouin_fwhm",
+       "brightness": 127,
+       "contrast": 127,
+       "slice_width": 1,
+       "reduce_method": null,
+       "hue": 127
+      },
+      "times": {
+       "name": "times",
+       "brightness": 127,
+       "contrast": 127,
+       "slice_width": 1,
+       "reduce_method": null,
+       "hue": 191
+      }
+     },
+     "slice": {
+      "view plane": [
+       1,
+       2
+      ],
+      "cut axis": 0,
+      "view slice": 0
+     },
+     "stack": {
+      "pixel size x": NaN,
+      "pixel size y": 2.0,
+      "pixel size z": 2.0,
+      "shape": [
+       1,
+       51,
+       71
+      ],
+      "channel hues": {
+       "BrillouinShift": 0,
+       "intensity": 63,
+       "peaksBrillouin_fwhm": 127,
+       "times": 191
+      }
+     }
+    }
+   }
+  ],
+  "structure composites manual": [
+   {
+    "layers": [
+     {
+      "label": "central canal",
+      "point_um": 2.0,
+      "geometry": [
+       [
+        "Circle",
+        {
+         "x": 36.40899435294992,
+         "y": 36.53086909469708,
+         "r": 2.4276690764992277,
+         "phi": 3.1415926535898016,
+         "point_um": 2.0
+        },
+        1
+       ]
+      ],
+      "color": [
+       127,
+       197,
+       255
+      ]
+     },
+     {
+      "label": "notocord",
+      "point_um": 2.0,
+      "geometry": [
+       [
+        "Ellipse",
+        {
+         "x": 35.89489168289749,
+         "y": 2.1674628503649664,
+         "a": 16.405961392704494,
+         "b": 24.716114828042638,
+         "phi": 3.1415926535898016,
+         "point_um": 2.0
+        },
+        1
+       ]
+      ],
+      "color": [
+       255,
+       127,
+       190
+      ]
+     },
+     {
+      "label": "spinal chord",
+      "point_um": 2.0,
+      "geometry": [
+       [
+        "Polygon",
+        {
+         "points": [
+          [
+           16.78991401530994,
+           66.09036676836664
+          ],
+          [
+           35.168840092083244,
+           71.87083545380358
+          ],
+          [
+           53.69598331463707,
+           68.90649253819512
+          ],
+          [
+           60.810406312097896,
+           49.786480732519664
+          ],
+          [
+           66.91348322110754,
+           31.20805944851501
+          ],
+          [
+           59.476452000074396,
+           5.914205581512277
+          ],
+          [
+           9.859196776000154,
+           5.951008113488314
+          ],
+          [
+           6.266496664899743,
+           22.366308763139592
+          ],
+          [
+           7.9510032415704694,
+           40.76340801117322
+          ]
+         ],
+         "point_um": 2.0
+        },
+        1
+       ]
+      ],
+      "color": [
+       85,
+       255,
+       0,
+       255
+      ]
+     },
+     {
+      "label": "zany rectangle",
+      "point_um": 2.0,
+      "geometry": [
+       [
+        "Rectangle",
+        {
+         "x": 36.449308777520194,
+         "y": 51.510115498878605,
+         "a": 27.81239989768493,
+         "b": 13.40340554473504,
+         "phi": 2.581317365978372,
+         "point_um": 2.0
+        },
+        1
+       ]
+      ],
+      "color": [
+       255,
+       85,
+       0,
+       255
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

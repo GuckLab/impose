@@ -1,0 +1,66 @@
+0.1.1
+ - enh: allow rotating shapes around other origin
+ - enh: allow rotating and translating StructureLayer,
+   StructureComposite, and StructureCompositeStack
+ - enh: add new controls for translating and rotating structures
+ - fix: these enhancements now allow to rotate polygon shapes (#18)
+ - fix: catch a few exceptions (#19)
+ - ref: change property "position" to "position_um" in structures
+ - setup: pin czifile to specific version
+ - tests: add basic test for .czi import (#12)
+0.1.0:
+ - enh: introduce file signatures and use them to verify files in
+   a session (#16)
+ - fix: when opening a session and the data source files moved to a
+   different location (e.g. due to different OS or network share), the
+   user is now asked to select a directory containing these files (#16)
+ - fix: restrict opening data files to the supported file formats (#15)
+ - fix: automatically append .impose-session suffix when saving sessions
+0.0.10:
+ - fix: suppoet opening HDF5 files where axisOrder is stored
+   as variable length string
+0.0.9:
+ - enh: allow to exclude shapes from other shapes (#1)
+ - enh: allow to delete shapes (#7)
+ - enh: use individual buttons for adding shapes in collect
+ - fix: when opening a session, the paths in colocalize were not
+   displayed
+ - fix: error message on arrow key strokes (#10)
+ - fix: prevent shapes from having zero-valued sizes (#8)
+ - fix: rotation of polygon shape was not done around center
+ - fix: set_size did not preserve position of polygon shape
+ - fix: set_scale did not set pixel_um for rectangle shape
+ - fix: disable scaling and rotation via modifier keys in
+   colocalization view (pyqtgraph)
+ - fix: ambiguities in flblend
+ - ref: modified view of structures in collect
+0.0.8
+ - fix: support nan-valued image data
+ - fix: be more verbose for invalid .h5 Brillouin files
+ - enh: show slice number and depth in microns in visualize (#9)
+0.0.7
+ - feat: allow to manually change shape size and positions (#2)
+ - enh: set shape size to 1/5th of image extension
+0.0.6
+ - feat: allow to save and open impose sessions
+ - feat: save impose-composite alongside exported tsv data
+ - feat: implement signature comparison of shapes, structures, and
+   layers
+ - feat: remember position and rotation of structure composite in
+   colocalize if the original structure composite did not change
+ - fix: plotting integer-based ROI did not work
+0.0.5
+ - setup: add missing czifile dependency
+ - feat: implement export of structure data
+ - enh: implement comparison of geometries
+ - ref: refactor submodule structure and function names
+ - ref: make StructureLayer future proof w.r.t. #1
+ - ref: move mask compuation to structure class
+0.0.4
+ - ci release
+0.0.3
+ - ci release
+0.0.2
+ - ci release
+0.0.1
+ - initial release

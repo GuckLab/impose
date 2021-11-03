@@ -1,0 +1,355 @@
+{
+ "structure composite stack": {
+  "composites": [
+   {
+    "layers": [
+     {
+      "label": "circ-square-cutout",
+      "point_um": 2.0,
+      "geometry": [
+       [
+        "Circle",
+        {
+         "x": 39.22512012277806,
+         "y": 29.564663243016795,
+         "r": 10.772992559300464,
+         "phi": 0.0,
+         "point_um": 2.0
+        },
+        1
+       ],
+       [
+        "Rectangle",
+        {
+         "x": 40.0,
+         "y": 30.0,
+         "a": 14.0,
+         "b": 9.333333333333334,
+         "phi": 0.0,
+         "point_um": 2.0
+        },
+        -1
+       ],
+       [
+        "Ellipse",
+        {
+         "x": 40.03565708439141,
+         "y": 29.786057493651647,
+         "a": 3.6136986530713164,
+         "b": 2.589816947704652,
+         "phi": 1.5905885032278562,
+         "point_um": 2.0
+        },
+        1
+       ],
+       [
+        "Circle",
+        {
+         "x": 23.95875410739375,
+         "y": 28.082491785212493,
+         "r": 1.9693432542660587,
+         "phi": 0.0,
+         "point_um": 2.0
+        },
+        1
+       ]
+      ],
+      "color": [
+       195,
+       255,
+       127
+      ]
+     },
+     {
+      "label": "ellipse",
+      "point_um": 2.0,
+      "geometry": [
+       [
+        "Ellipse",
+        {
+         "x": 39.88743993861096,
+         "y": 41.19877771874478,
+         "a": 7.000000000000001,
+         "b": 4.2,
+         "phi": 0.0,
+         "point_um": 2.0
+        },
+        1
+       ]
+      ],
+      "color": [
+       255,
+       127,
+       172
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "collection": {
+  "paths": [
+   "brillouin.h5"
+  ],
+  "data sources": [
+   {
+    "path": "brillouin.h5",
+    "metadata": {
+     "blend": {
+      "mode": "rgb",
+      "channels": [
+       "BrillouinShift"
+      ]
+     },
+     "channels": [
+      [
+       "BrillouinShift",
+       {
+        "name": "BrillouinShift",
+        "brightness": 128,
+        "contrast": 128,
+        "slice_width": 1,
+        "reduce_method": null,
+        "hue": 0
+       }
+      ],
+      [
+       "intensity",
+       {
+        "name": "intensity",
+        "brightness": 128,
+        "contrast": 128,
+        "slice_width": 1,
+        "reduce_method": null,
+        "hue": 63
+       }
+      ],
+      [
+       "peaksBrillouin_fwhm",
+       {
+        "name": "peaksBrillouin_fwhm",
+        "brightness": 128,
+        "contrast": 128,
+        "slice_width": 1,
+        "reduce_method": null,
+        "hue": 127
+       }
+      ],
+      [
+       "times",
+       {
+        "name": "times",
+        "brightness": 128,
+        "contrast": 128,
+        "slice_width": 1,
+        "reduce_method": null,
+        "hue": 191
+       }
+      ]
+     ],
+     "slice": {
+      "view plane": [
+       1,
+       2
+      ],
+      "cut axis": 0,
+      "view slice": 0
+     },
+     "stack": {
+      "pixel size x": NaN,
+      "pixel size y": 2.0,
+      "pixel size z": 2.0,
+      "shape": [
+       1,
+       51,
+       71
+      ],
+      "channel hues": {
+       "BrillouinShift": 0,
+       "intensity": 63,
+       "peaksBrillouin_fwhm": 127,
+       "times": 191
+      }
+     }
+    }
+   }
+  ]
+ },
+ "colocalization": {
+  "paths": [
+   "brillouin.h5"
+  ],
+  "data sources": [
+   {
+    "path": "brillouin.h5",
+    "metadata": {
+     "blend": {
+      "mode": "rgb",
+      "channels": [
+       "BrillouinShift"
+      ]
+     },
+     "channels": [
+      [
+       "BrillouinShift",
+       {
+        "name": "BrillouinShift",
+        "brightness": 128,
+        "contrast": 128,
+        "slice_width": 1,
+        "reduce_method": null,
+        "hue": 0
+       }
+      ],
+      [
+       "intensity",
+       {
+        "name": "intensity",
+        "brightness": 128,
+        "contrast": 128,
+        "slice_width": 1,
+        "reduce_method": null,
+        "hue": 63
+       }
+      ],
+      [
+       "peaksBrillouin_fwhm",
+       {
+        "name": "peaksBrillouin_fwhm",
+        "brightness": 128,
+        "contrast": 128,
+        "slice_width": 1,
+        "reduce_method": null,
+        "hue": 127
+       }
+      ],
+      [
+       "times",
+       {
+        "name": "times",
+        "brightness": 128,
+        "contrast": 128,
+        "slice_width": 1,
+        "reduce_method": null,
+        "hue": 191
+       }
+      ]
+     ],
+     "slice": {
+      "view plane": [
+       1,
+       2
+      ],
+      "cut axis": 0,
+      "view slice": 0
+     },
+     "stack": {
+      "pixel size x": NaN,
+      "pixel size y": 2.0,
+      "pixel size z": 2.0,
+      "shape": [
+       1,
+       51,
+       71
+      ],
+      "channel hues": {
+       "BrillouinShift": 0,
+       "intensity": 63,
+       "peaksBrillouin_fwhm": 127,
+       "times": 191
+      }
+     }
+    }
+   }
+  ],
+  "structure composites manual": [
+   {
+    "layers": [
+     {
+      "label": "circ-square-cutout",
+      "point_um": 2.0,
+      "geometry": [
+       [
+        "Circle",
+        {
+         "x": 32.40713141687827,
+         "y": 22.894891682897445,
+         "r": 10.772992559300464,
+         "phi": 5.718941045348594,
+         "point_um": 2.0
+        },
+        1
+       ],
+       [
+        "Rectangle",
+        {
+         "x": 33.29470773211409,
+         "y": 22.848359965364715,
+         "a": 14.0,
+         "b": 9.333333333333334,
+         "phi": 5.718941045348594,
+         "point_um": 2.0
+        },
+        -1
+       ],
+       [
+        "Ellipse",
+        {
+         "x": 33.210426106571965,
+         "y": 22.648511444514824,
+         "a": 3.6136986530713164,
+         "b": 2.589816947704652,
+         "phi": 1.0263442413968642,
+         "point_um": 2.0
+        },
+        1
+       ],
+       [
+        "Circle",
+        {
+         "x": 18.714527337752653,
+         "y": 29.80657433463452,
+         "r": 1.9693432542660587,
+         "phi": 5.718941045348594,
+         "point_um": 2.0
+        },
+        1
+       ]
+      ],
+      "color": [
+       195,
+       255,
+       127
+      ]
+     },
+     {
+      "label": "ellipse",
+      "point_um": 2.0,
+      "geometry": [
+       [
+        "Ellipse",
+        {
+         "x": 39.18844822425063,
+         "y": 32.37144324614225,
+         "a": 7.000000000000001,
+         "b": 4.2,
+         "phi": 5.718941045348594,
+         "point_um": 2.0
+        },
+        1
+       ]
+      ],
+      "color": [
+       255,
+       127,
+       172
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "impose": {
+  "version": "0.0.8.post24"
+ }
+}
