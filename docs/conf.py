@@ -193,7 +193,8 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'impose', 'impose Documentation',
-     author, 'impose', 'Fit and superimpose shapes from different imaging modalities',
+     author, 'impose',
+     'Fit and superimpose shapes from different imaging modalities',
      'Scientific'),
 ]
 
