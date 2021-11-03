@@ -9,26 +9,26 @@ Align microscopy images using custom-defined structural patterns and superimpose
 
 Documentation
 -------------
-There is no documentation yet.
+The documentation is available at `impose.readthedocs.io <https://impose.readthedocs.io/>`_.
 
 
 Installation
 ------------
-If you have Python 3.6 or later, you can install impose via:
+If you have Python 3.7 or later, you can install impose via:
 
 ::
 
-    python3 -m pip install impose
+    pip install impose
 
 
 Starting impose
 ===============
 Once you have installed impose via the method described above, you can
-start it from the `Terminal` app:
+start it from the command line (e.g. `Terminal` app on macOS):
 
 ::
 
-    python3 -m impose
+    python -m impose
 
 
 
