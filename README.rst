@@ -35,8 +35,10 @@ start it from the `Terminal` app:
 .. |impose| image:: https://raw.github.com/GuckLab/impose/master/docs/logo/impose.png
 .. |PyPI Version| image:: https://img.shields.io/pypi/v/impose.svg
    :target: https://pypi.python.org/pypi/impose
+.. |Build Status| image:: https://img.shields.io/github/workflow/status/GuckLab/impose/Checks
+   :target: https://github.com/GuckLab/impose/actions?query=workflow%3AChecks
 .. |Coverage Status| image:: https://img.shields.io/codecov/c/github/GuckLab/impose/master.svg
    :target: https://codecov.io/gh/GuckLab/impose
 .. |Docs Status| image:: https://readthedocs.org/projects/impose/badge/?version=latest
    :target: https://readthedocs.org/projects/impose/builds/
-   
+
