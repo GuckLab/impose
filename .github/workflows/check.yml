@@ -24,13 +24,14 @@ jobs:
         # prerequisites
         python -m pip install --upgrade pip wheel
         python -m pip install codecov coverage flake8 pytest
+        python -m pip install  -r /tests/requirements.txt
         # install dependencies
         pip install -e .
         # show installed packages
         pip freeze
     - name: Test with pytest
       run: |
-        coverage run --source=qpformat -m pytest tests
+        coverage run --source=impose -m pytest tests
     - name: Lint with flake8
       run: |
         flake8 .
