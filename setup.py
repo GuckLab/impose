@@ -31,7 +31,7 @@ setup(
                       "h5py>=2.10.0",
                       "numpy>=1.17.0",
                       "pyqt5>=5.15.0",
-                      "pyqtgraph==0.12.1",
+                      "pyqtgraph==0.12.3",
                       "scikit-image>=0.17.2",
                       "scipy>=0.12.0",  # compute size of polygon shape
                       "imageio",  # open image files
