@@ -129,3 +129,5 @@ dmypy.json
 .pyre/
 
 impose/_version_save.py
+
+.idea
