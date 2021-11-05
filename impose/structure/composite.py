@@ -102,13 +102,15 @@ class StructureComposite:
                                  + "'{}' already exists!".format(sl.label))
         self.layers.append(sl)
 
-    def change_layer_label(self, old_label, new_label):
+    def change_layer_label(self, old_label, new_label, force=False):
         """Change the label of a StructureLayer"""
         if old_label == new_label:
             # nothing to do
             return
         sl = self[old_label]
-        if new_label in self:
+        if new_label in self and not force:
+            # TODO: instead of blindly overriding, change the other label in
+            #  "force" mode.
             raise ValueError("Layer with label '{}' already ".format(new_label)
                              + "exists!")
         else:

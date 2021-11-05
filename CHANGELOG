@@ -1,4 +1,6 @@
 0.1.2
+ - fix: color of shapes in colocalize view not updated when changed
+   in collect view
  - setup: bump pyqtgraph from 0.12.1 to 0.12.3
  - setup: bump required Python version to 3.7, because pyqtgraph
    has that dependency

@@ -173,6 +173,14 @@ class ImposeSessionSchemeColocalize:
                     # x axis defines point size
                     sci.set_scale(point_um=ds.get_pixel_size()[0])
                     self.strucure_composites_manual.append(sci)
+                else:
+                    sci = self.strucure_composites_manual[ii]
+                # make sure that color and label are correct
+                # (this is not checked in `geometry_identical_to`
+                for jj in range(len(sc)):
+                    sci[jj].color = sc[jj].color
+                    sci.change_layer_label(
+                        sci[jj].label, sc[jj].label, force=True)
 
 
 class ImposeSession:
