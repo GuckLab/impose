@@ -23,7 +23,7 @@ def load_h5(path):
         channels = OrderedDict()
         for rep_key in rep_keys:
             session.set_current_repetition(rep_key)
-            keys = sorted(session.evaluation_model().get_parameter_list())
+            keys = sorted(session.evaluation_model().get_parameter_keys())
 
             # If the file contains multiple repetitions, we
             # prepend the repetition key
