@@ -1,5 +1,6 @@
 import json
 import pathlib
+import warnings
 
 import numpy as np
 
@@ -73,8 +74,17 @@ class ImposeSessionSchemeCollect:
             data_source = DataSource(path)
         if structure_composite is None:
             structure_composite = StructureComposite()
-        self.data_sources.append(data_source)
-        self.scs.append(structure_composite)
+
+        # Make sure we don't have any duplicate signatures
+        for ds in self.data_sources:
+            if ds.signature == data_source.signature:
+                warnings.warn(
+                    f"Prevented loading a duplicate dataset: {path}")
+                break
+        else:
+            # We don't have this dataset already - append it
+            self.data_sources.append(data_source)
+            self.scs.append(structure_composite)
 
     def clear(self):
         """Clear the session"""

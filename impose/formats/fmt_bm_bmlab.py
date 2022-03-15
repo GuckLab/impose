@@ -1,9 +1,11 @@
 from collections import OrderedDict
 
+from bmlab.session import Session, get_valid_source, get_session_file_path
+from bmlab.controllers import EvaluationController
 import h5py
 import numpy as np
-from bmlab.session import Session, get_valid_source
-from bmlab.controllers import EvaluationController
+
+from ..util import hashfile, hashobj
 
 
 def load_h5(path):
@@ -37,6 +39,13 @@ def load_h5(path):
                     evc.get_data(key_prefix + key)
                 channels[key] = data
 
+        # create a unique signature for this dataset
+        p1 = get_valid_source(path)
+        p2 = get_session_file_path(p1)
+        h1 = hashfile(p1, blocksize=65536, count=1)
+        h2 = hashfile(p2, blocksize=65536, count=1)
+        signature = hashobj((h1, h2))
+
         chan = sorted(channels)
         if len(chan) > 0:
             meta = {
@@ -44,6 +53,7 @@ def load_h5(path):
                 "pixel size y": calc_pixel_size(positions, 1),
                 "pixel size z": calc_pixel_size(positions, 2),
                 "shape": channels[chan[0]].shape,
+                "signature": signature,
             }
     else:
         # Fall-back to load BrillouinEvaluation exported h5 file
