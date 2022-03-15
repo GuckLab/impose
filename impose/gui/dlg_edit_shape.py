@@ -1,7 +1,7 @@
 import pkg_resources
 
 import numpy as np
-from PyQt5 import uic, QtWidgets
+from PyQt6 import uic, QtWidgets
 
 
 class EditDialog(QtWidgets.QDialog):
@@ -13,7 +13,8 @@ class EditDialog(QtWidgets.QDialog):
         self.point_um = shape.point_um
 
         # Dialog box buttons
-        btn_apply = self.buttonBox.button(QtWidgets.QDialogButtonBox.Ok)
+        btn_apply = self.buttonBox.button(
+            QtWidgets.QDialogButtonBox.StandardButton.Ok)
         btn_apply.clicked.connect(self.on_ok)
 
 

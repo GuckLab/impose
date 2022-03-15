@@ -3,7 +3,7 @@ import pathlib
 import pkg_resources
 
 import numpy as np
-from PyQt5 import uic, QtCore, QtWidgets
+from PyQt6 import uic, QtCore, QtWidgets
 
 from .. import formats
 
@@ -42,8 +42,9 @@ class Colocalize(QtWidgets.QWidget):
         for tab in [self.tableWidget_paths, self.tableWidget_structures]:
             header = tab.horizontalHeader()
             header.setSectionResizeMode(
-                0, QtWidgets.QHeaderView.ResizeToContents)
-            header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+                0, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+            header.setSectionResizeMode(
+                0, QtWidgets.QHeaderView.ResizeMode.Stretch)
 
         # Tool Button Add Menu
         # options button
@@ -316,11 +317,11 @@ class Colocalize(QtWidgets.QWidget):
                     item = QtWidgets.QLabel()
                     self.tableWidget_paths.setCellWidget(row, jj, item)
                 QtWidgets.QApplication.processEvents(
-                    QtCore.QEventLoop.AllEvents, 500)
+                    QtCore.QEventLoop.ProcessEventsFlag.AllEvents, 500)
                 f_metrics = item.fontMetrics()
                 s = item.size().width() - 5
                 ellabel = f_metrics.elidedText(
-                    label, QtCore.Qt.ElideLeft, s)
+                    label, QtCore.Qt.TextElideMode.ElideLeft, s)
                 item.setText(ellabel)
 
     def update_ui_from_scheme(self):

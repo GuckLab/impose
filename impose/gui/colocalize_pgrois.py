@@ -1,5 +1,5 @@
 import numpy as np
-from PyQt5 import QtCore
+from PyQt6 import QtCore
 import pyqtgraph as pg
 from pyqtgraph import functions as fn
 
@@ -48,7 +48,8 @@ class StructureCompositeGroupedROIs(QtCore.QObject):
         roi.sigRegionChangeStarted.connect(self.on_change_started)
         roi.sigRegionChangeFinished.connect(self.on_change_finished)
         roi.sigRegionChanged.connect(self.on_change_finished)
-        roi.setAcceptedMouseButtons(QtCore.Qt.LeftButton)  # allow clicking
+        roi.setAcceptedMouseButtons(
+            QtCore.Qt.MouseButton.LeftButton)  # allow clicking
         roi.sigClicked.connect(self.update_structure_geometry)
         self.rois.append(roi)
         self._initial_states.append(roi.saveState())
@@ -256,10 +257,11 @@ class ColocPolyLineROI(pg.PolyLineROI):
             if hh["type"] == "t":
                 # Hide polygon drag handles
                 hh["item"].hide()
-                hh["item"].setAcceptedMouseButtons(QtCore.Qt.NoButton)
+                hh["item"].setAcceptedMouseButtons(
+                    QtCore.Qt.MouseButton.NoButton)
 
         for seg in self.segments:
-            seg.setAcceptedMouseButtons(QtCore.Qt.NoButton)
+            seg.setAcceptedMouseButtons(QtCore.Qt.MouseButton.NoButton)
             seg.setZValue(self.zValue() - 1000)
 
     def segmentClicked(self, segment, ev=None, pos=None):

@@ -1,7 +1,7 @@
 import pathlib
 
 import numpy as np
-from PyQt5 import QtCore, QtWidgets
+from PyQt6 import QtCore, QtWidgets
 
 from impose.gui.main import Impose
 
@@ -22,8 +22,10 @@ def test_load_dataset(qtbot, monkeypatch):
     example_data = data_dir / "brillouin.h5"
     monkeypatch.setattr(QtWidgets.QFileDialog, "getOpenFileNames",
                         lambda *args: ([str(example_data)], None))
-    qtbot.mouseClick(mw.tab_collect.toolButton_add_data, QtCore.Qt.LeftButton)
-    QtWidgets.QApplication.processEvents(QtCore.QEventLoop.AllEvents, 300)
+    qtbot.mouseClick(mw.tab_collect.toolButton_add_data,
+                     QtCore.Qt.MouseButton.LeftButton)
+    QtWidgets.QApplication.processEvents(
+        QtCore.QEventLoop.ProcessEventsFlag.AllEvents, 300)
 
     # make sure the data is loaded correctly
     assert len(mw.tab_collect.session_scheme.paths) == 1
@@ -43,7 +45,7 @@ def test_load_session(qtbot, monkeypatch):
     # select the first entry in the datasets list
     assert not mw.tab_collect.widget_struct.isEnabled()
     qtbot.mouseClick(mw.tab_collect.tableWidget_paths.cellWidget(0, 0),
-                     QtCore.Qt.LeftButton)
+                     QtCore.Qt.MouseButton.LeftButton)
     assert mw.tab_collect.widget_struct.isEnabled()
 
     # test a label
