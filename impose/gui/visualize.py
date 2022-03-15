@@ -3,7 +3,7 @@ import copy
 import pkg_resources
 
 import numpy as np
-from PyQt5 import uic, QtCore, QtWidgets
+from PyQt6 import uic, QtCore, QtWidgets
 
 
 class Visualize(QtWidgets.QWidget):
@@ -69,7 +69,7 @@ class Visualize(QtWidgets.QWidget):
         channels_sel = []
         for ii, cname in enumerate(meta_channels):
             qwi = self.listWidget_chan.item(ii)
-            if qwi.checkState():
+            if qwi.checkState() == QtCore.Qt.CheckState.Checked:
                 channels_sel.append(cname)
 
         state = {
@@ -103,11 +103,11 @@ class Visualize(QtWidgets.QWidget):
         # add channels
         for name in state["channels"]:
             qwi = QtWidgets.QListWidgetItem(name)
-            qwi.setFlags(qwi.flags() | QtCore.Qt.ItemIsUserCheckable)
+            qwi.setFlags(qwi.flags() | QtCore.Qt.ItemFlag.ItemIsUserCheckable)
             if name in state["blend"]["channels"]:
-                qwi.setCheckState(QtCore.Qt.Checked)
+                qwi.setCheckState(QtCore.Qt.CheckState.Checked)
             else:
-                qwi.setCheckState(QtCore.Qt.Unchecked)
+                qwi.setCheckState(QtCore.Qt.CheckState.Unchecked)
             self.listWidget_chan.addItem(qwi)
         self.listWidget_chan.setCurrentRow(0)
         self.listWidget_chan.blockSignals(False)

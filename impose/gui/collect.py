@@ -2,7 +2,7 @@ import pathlib
 import pkg_resources
 
 import numpy as np
-from PyQt5 import uic, QtCore, QtWidgets
+from PyQt6 import uic, QtCore, QtWidgets
 from skimage.color import hsv2rgb
 
 from .. import formats
@@ -40,8 +40,9 @@ class Collect(QtWidgets.QWidget):
         # set horizontal stretch for path list
         header = self.tableWidget_paths.horizontalHeader()
         header.setSectionResizeMode(
-            0, QtWidgets.QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+            0, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(0,
+                                    QtWidgets.QHeaderView.ResizeMode.Stretch)
 
         # signal for user wants to add new dataset(s)
         self.toolButton_add_data.clicked.connect(self.on_add_data)
@@ -191,9 +192,10 @@ class Collect(QtWidgets.QWidget):
 
         # Finally add a stretch spacer in case there are not enough
         # items.
-        spacer_item = QtWidgets.QSpacerItem(20, 0,
-                                            QtWidgets.QSizePolicy.Minimum,
-                                            QtWidgets.QSizePolicy.Expanding)
+        spacer_item = QtWidgets.\
+            QSpacerItem(20, 0,
+                        QtWidgets.QSizePolicy.Policy.Minimum,
+                        QtWidgets.QSizePolicy.Policy.Expanding)
         self.verticalLayout_structures.addItem(spacer_item)
         self.widget_structures.setUpdatesEnabled(True)
 
@@ -209,11 +211,11 @@ class Collect(QtWidgets.QWidget):
                     item = QtWidgets.QLabel()
                     self.tableWidget_paths.setCellWidget(row, jj, item)
                 QtWidgets.QApplication.processEvents(
-                    QtCore.QEventLoop.AllEvents, 500)
+                    QtCore.QEventLoop.ProcessEventsFlag.AllEvents, 500)
                 f_metrics = item.fontMetrics()
                 s = item.size().width() - 5
                 ellabel = f_metrics.elidedText(
-                    label, QtCore.Qt.ElideLeft, s)
+                    label, QtCore.Qt.TextElideMode.ElideLeft, s)
                 item.setText(ellabel)
 
     def update_ui_from_scheme(self):

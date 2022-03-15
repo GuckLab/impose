@@ -1,5 +1,5 @@
 import numpy as np
-from PyQt5 import QtCore
+from PyQt6 import QtCore
 import pyqtgraph as pg
 
 from ..geometry import pg_roi_to_impose_shape

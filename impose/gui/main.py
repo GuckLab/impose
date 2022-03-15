@@ -4,7 +4,7 @@ import signal
 import sys
 import traceback
 
-from PyQt5 import uic, QtCore, QtWidgets
+from PyQt6 import uic, QtCore, QtWidgets
 import pyqtgraph as pg
 
 from .widgets import ShowWaitCursor
@@ -28,7 +28,7 @@ class Impose(QtWidgets.QMainWindow):
         QtCore.QCoreApplication.setOrganizationDomain(
             "impose.readthedocs.io")
         QtCore.QCoreApplication.setApplicationName("impose")
-        QtCore.QSettings.setDefaultFormat(QtCore.QSettings.IniFormat)
+        QtCore.QSettings.setDefaultFormat(QtCore.QSettings.Format.IniFormat)
         # Some promoted widgets may need the above constants set in order
         # to access the settings upon initialization.
         super(Impose, self).__init__()
@@ -146,14 +146,14 @@ def excepthook(etype, value, trace):
 
     errorbox = QtWidgets.QMessageBox()
     errorbox.addButton(QtWidgets.QPushButton('Close'),
-                       QtWidgets.QMessageBox.YesRole)
+                       QtWidgets.QMessageBox.ButtonRole.YesRole)
     errorbox.addButton(QtWidgets.QPushButton(
-        'Copy text && Close'), QtWidgets.QMessageBox.NoRole)
+        'Copy text && Close'), QtWidgets.QMessageBox.ButtonRole.NoRole)
     errorbox.setText(exception)
-    ret = errorbox.exec_()
+    ret = errorbox.exec()
     if ret == 1:
         cb = QtWidgets.QApplication.clipboard()
-        cb.clear(mode=cb.Clipboard)
+        cb.clear(mode=cb.Mode.Clipboard)
         cb.setText(exception)
 
 

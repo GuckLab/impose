@@ -4,14 +4,14 @@ def main(splash=True):
     import sys
     # import time
 
-    from PyQt5.QtWidgets import QApplication
+    from PyQt6.QtWidgets import QApplication
 
     app = QApplication(sys.argv)
 #    imdir = pkg_resources.resource_filename("impose", "img")
 
 #    if splash:
-#        from PyQt5.QtWidgets import QSplashScreen
-#        from PyQt5.QtGui import QPixmap
+#        from PyQt6.QtWidgets import QSplashScreen
+#        from PyQt6.QtGui import QPixmap
 #        splash_path = os.path.join(imdir, "splash.png")
 #        splash_pix = QPixmap(splash_path)
 #        splash = QSplashScreen(splash_pix)
@@ -21,7 +21,7 @@ def main(splash=True):
 #        time.sleep(.07)
 #        app.processEvents()
 
-    from PyQt5 import QtCore  # , QtGui
+    from PyQt6 import QtCore  # , QtGui
     from .gui.main import Impose
 
 #    # Set Application Icon
@@ -29,7 +29,7 @@ def main(splash=True):
 #    app.setWindowIcon(QtGui.QIcon(icon_path))
 
     # Use dots as decimal separators
-    QtCore.QLocale.setDefault(QtCore.QLocale(QtCore.QLocale.C))
+    QtCore.QLocale.setDefault(QtCore.QLocale(QtCore.QLocale.Language.C))
 
     window = Impose()  # noqa: F841
 
@@ -37,7 +37,7 @@ def main(splash=True):
 #    if splash:
 #        splash.finish(window)
 
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
 
 
 if __name__ == "__main__":
