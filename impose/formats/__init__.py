@@ -5,9 +5,16 @@ import numpy as np
 
 from ..util import hashfile
 
-from .fmt_czi import load_czi
-from .fmt_h5 import load_h5
-from .fmt_img import load_img
+# Naming conventions for formats:
+# fmt_IMAGING-MODALITY_SPECIFIC_SOFTWARE.py
+# IMAGING-MODALITY examples:
+# - bf: Bright-Field Microscopy
+# - bm: Brillouin Microscopy
+# - fl: Fluorescence Microscopy
+
+from .fmt_fl_zeiss import load_czi
+from .fmt_bm_bmlab import load_h5
+from .fmt_bf_generic import load_img
 
 
 def load(path):
