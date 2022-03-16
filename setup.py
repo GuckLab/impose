@@ -28,7 +28,7 @@ setup(
     description=description,
     long_description=open('README.rst').read() if exists('README.rst') else '',
     install_requires=["czifile==2019.7.2",  # bc cgohlke and used for signature
-                      "bmlab>=0.1.1",
+                      "bmlab>=0.1.2",
                       "h5py>=2.10.0",
                       "numpy>=1.17.0",
                       "pyqt5>=5.15.0",
