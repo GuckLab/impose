@@ -1,7 +1,7 @@
 0.2.1
  - enh: keep the order of data keys returned by bmlab for user convenience (#24)
+ - setup: migrate from PyQt5 (5.15.0) to PyQt6 (6.2.0) (#23)
  - setup: bump bmlab from 0.1.1 to 0.1.2 (#24)
- - setup: bump pyqt from 5.15.0 to 6.2.0 (#23)
  - setup: bump pyqtgraph from 0.12.3 to 0.12.4 (#23)
 0.2.0
  - feat: support bmlab session file format (#18)
