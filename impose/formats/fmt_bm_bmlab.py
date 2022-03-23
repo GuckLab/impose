@@ -33,11 +33,9 @@ def load_h5(path):
             if len(rep_keys) > 1:
                 key_prefix = 'rep-' + rep_key + '_'
             for key in keys:
-                if len(rep_keys) > 1:
-                    key = 'rep-' + rep_key + '_' + key
                 data, positions, dimensionality, labels =\
-                    evc.get_data(key_prefix + key)
-                channels[key] = data
+                    evc.get_data(key)
+                channels[key_prefix + key] = data
 
         # create a unique signature for this dataset
         p1 = get_valid_source(path)
