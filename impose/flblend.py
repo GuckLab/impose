@@ -51,7 +51,7 @@ class FlBlend:
             hist, edges = np.histogram(image[~np.isnan(image)],
                                        bins=int(np.sqrt(image.size)),
                                        density=True)
-            shist = np.cumsum(hist) / np.sum(hist)
+            shist = np.cumsum(hist) / np.nansum(hist)
             amin = np.argmin(np.abs(shist - .01))
             amax = np.argmin(np.abs(shist - .99))
             vmin = edges[amin]
@@ -95,19 +95,31 @@ class FlBlend:
         stack_r = np.zeros((shape[0], shape[1], len(self)), dtype=float)
         stack_g = np.zeros((shape[0], shape[1], len(self)), dtype=float)
         stack_b = np.zeros((shape[0], shape[1], len(self)), dtype=float)
+        # We use this array to track the number of valid images
+        # (we have to use float here, since np.nan only exists for floats)
+        # This is necessary so we can correctly account for NaN values
+        # that might occur e.g. for Brillouin data.
+        # See https://github.com/GuckLab/impose/issues/25 for more background.
+        stack_v = np.zeros((shape[0], shape[1], len(self)), dtype=float)
 
         for ii, flim in enumerate(self.images):
             rgb = flim.get_rgb()
             stack_r[:, :, ii] = rgb[:, :, 0]
             stack_g[:, :, ii] = rgb[:, :, 1]
             stack_b[:, :, ii] = rgb[:, :, 2]
+            stack_v[:, :, ii] = np.invert(np.isnan(rgb[:, :, 0]))
+
+        # Get the number of valid images for later normalization
+        norm_v = np.nansum(stack_v, axis=2)
+        # Zero valid images means all images were NaN
+        norm_v[norm_v == 0] = np.nan
 
         merged = np.zeros((shape[0], shape[1], 3), dtype=float)
-        merged[:, :, 0] = np.sum(stack_r, axis=2)
-        merged[:, :, 1] = np.sum(stack_g, axis=2)
-        merged[:, :, 2] = np.sum(stack_b, axis=2)
+        merged[:, :, 0] = np.nansum(stack_r, axis=2) / norm_v
+        merged[:, :, 1] = np.nansum(stack_g, axis=2) / norm_v
+        merged[:, :, 2] = np.nansum(stack_b, axis=2) / norm_v
 
-        return merged / len(self)
+        return merged
 
     def blend_hsv(self):
         """Return image from RGB blending
@@ -137,17 +149,17 @@ class FlBlend:
         merged_hsv = np.zeros((shape[0], shape[1], 3), dtype=float)
 
         stack_havg = np.arctan2(
-            np.mean(stack_yh, axis=2),
-            np.mean(stack_xh, axis=2)) / 2 / np.pi % 1
+            np.nanmean(stack_yh, axis=2),
+            np.nanmean(stack_xh, axis=2)) / 2 / np.pi % 1
 
-        valid = np.sum(stack_v, axis=2) != 0
-        sat = np.sum(stack_s, axis=2)
-        sat[valid] = np.sum(stack_v, axis=2)[valid]
-        sat /= np.max(sat)
+        valid = np.nansum(stack_v, axis=2) != 0
+        sat = np.nansum(stack_s, axis=2)
+        sat[valid] = np.nansum(stack_v, axis=2)[valid]
+        sat /= np.nanmax(sat)
 
         merged_hsv[:, :, 0] = stack_havg
         merged_hsv[:, :, 1] = 1-sat
-        merged_hsv[:, :, 2] = np.mean(stack_v, axis=2)
+        merged_hsv[:, :, 2] = np.nanmean(stack_v, axis=2)
 
         return hsv2rgb(merged_hsv)
 
@@ -234,5 +246,9 @@ class FlImage:
         return image_rgb
 
     def get_hsv(self):
-        image_hsv = rgb2hsv(self.get_rgb())
+        rgb = self.get_rgb()
+        image_hsv = rgb2hsv(rgb)
+        # rgb2hsv sets NaN values to zero
+        # which we revert here
+        image_hsv[np.isnan(rgb)] = np.nan
         return image_hsv
