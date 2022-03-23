@@ -34,6 +34,11 @@ def test_flb_blend_hsv():
     assert rgb[0, 0, 1] == 1 / len(fb)
     assert rgb[-1, -1, 0] == 1 / len(fb)
     assert np.allclose(rgb[-1, -1, 1], 0.45)  # did not check/fully understand
+    # NaN values should have no influence on the color
+    im3 = np.full((10, 10), np.nan)
+    fb.add_image(im3, hue=0)
+    rgb_nan = fb.blend(mode="hsv")
+    assert (rgb_nan == rgb).all()
 
 
 def test_flb_blend_rgb():
@@ -47,6 +52,11 @@ def test_flb_blend_rgb():
     assert rgb[0, 0, 1] == 1 / len(fb)
     assert rgb[-1, -1, 0] == 1 / len(fb)
     assert rgb[-1, -1, 1] == 0
+    # NaN values should have no influence on the color
+    im3 = np.full((10, 10), np.nan)
+    fb.add_image(im3, hue=0)
+    rgb_nan = fb.blend(mode="rgb")
+    assert (rgb_nan == rgb).all()
 
 
 def test_fli_get_hsv():
@@ -56,6 +66,13 @@ def test_fli_get_hsv():
     assert np.all(hsv[:, :, 0] == 123/255)
     assert np.all(hsv[:, :, 1] == 1)
     assert np.all(hsv[:, :, 2] != 1), "b/c different value of the image"
+    # Test behaviour for NaN values
+    image = np.ndarray((1, 3), buffer=np.array([0, np.nan, 1]))
+    fi = flblend.FlImage(image=image, hue=123)
+    hsv = fi.get_hsv()
+    assert np.allclose(hsv[:, 0, :], [0, 0, 0])
+    assert np.all(np.isnan(hsv[:, 1, :]))
+    assert np.allclose(hsv[:, 2, :], [123/255, 1, 1])
 
 
 @pytest.mark.parametrize("hue", [0, "#FF0000", [255, 0, 0], (255, 0, 0)])
