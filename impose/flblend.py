@@ -48,17 +48,20 @@ class FlBlend:
         """
         assert len(image.shape) == 2
         if autocontrast:
-            hist, edges = np.histogram(image[~np.isnan(image)],
-                                       bins=int(np.sqrt(image.size)),
-                                       density=True)
-            shist = np.cumsum(hist) / np.nansum(hist)
-            amin = np.argmin(np.abs(shist - .01))
-            amax = np.argmin(np.abs(shist - .99))
-            vmin = edges[amin]
-            vmax = edges[amax]
-            # scale to interval [0, 1]
-            image = rescale_intensity(image, in_range=(vmin, vmax),
-                                      out_range=(0, 1))
+            values_to_bin = image[~np.isnan(image)]
+            # only perform histogram analysis if whe have data
+            if values_to_bin.size:
+                hist, edges = np.histogram(values_to_bin,
+                                           bins=int(np.sqrt(image.size)),
+                                           density=True)
+                shist = np.cumsum(hist) / np.nansum(hist)
+                amin = np.argmin(np.abs(shist - .01))
+                amax = np.argmin(np.abs(shist - .99))
+                vmin = edges[amin]
+                vmax = edges[amax]
+                # scale to interval [0, 1]
+                image = rescale_intensity(image, in_range=(vmin, vmax),
+                                          out_range=(0, 1))
         flim = FlImage(image=image,
                        hue=hue,
                        contrast=contrast,
