@@ -38,6 +38,12 @@ jobs:
         pip install -e .
         # show installed packages
         pip freeze
+    - name: Start application and print version
+      env:
+        # Display must be available globally for linux to know where xvfb is
+        QT_DEBUG_PLUGINS: 1
+      run: |
+        python -m impose --version
     - name: Test with pytest
       run: |
         coverage run --source=impose -m pytest tests
@@ -48,4 +54,34 @@ jobs:
       run: |
         coverage report -m
         codecov
-       
+
+    - name: Create app and check if it runs (macOS)
+      if: runner.os == 'macOS'
+      working-directory: ./build-recipes
+      run: |
+        bash ./macos_build_app.sh Impose $(python -m impose --version)
+    - name: Upload build artifacts
+      if: (runner.os == 'macOS' && matrix.python-version == '3.9')
+      uses: actions/upload-artifact@v3
+      with:
+        name: Impose_macosx
+        path: |
+          ./build-recipes/dist/*.dmg
+
+    - name: Create app and check if it runs (Win)
+      if: runner.os == 'windows'
+      working-directory: ./build-recipes
+      run: |
+        pip install -r win_build_requirements.txt
+        pyinstaller -y --log-level=WARN win_Impose.spec
+        .\dist\Impose\\Impose.exe --version
+        python win_make_iss.py
+        iscc /Q win_impose.iss
+    - name: Upload build artifacts
+      if: (runner.os == 'windows' && matrix.python-version == '3.9')
+      uses: actions/upload-artifact@v3
+      with:
+        name: Impose_win
+        path: |
+          ./build-recipes/Output/*.exe
+
