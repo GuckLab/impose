@@ -1,5 +1,6 @@
 0.2.2
  - fix: properly handle nan-valued data (#25)
+ - fix: correctly open bmlab files with multiple repetitions (#26)
 0.2.1
  - enh: keep the order of data keys returned by bmlab for user convenience (#24)
  - setup: migrate from PyQt5 (5.15.0) to PyQt6 (6.2.0) (#23)
