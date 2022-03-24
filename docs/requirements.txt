@@ -3,7 +3,6 @@ h5py
 ipython
 matplotlib
 numpy
-pip>=22.0.4
 sphinx==4.3.0
 sphinxcontrib.bibtex>=2.0
 sphinx_rtd_theme==1.0
