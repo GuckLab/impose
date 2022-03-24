@@ -95,7 +95,7 @@ class FlBlend:
         stack_r = np.zeros((shape[0], shape[1], len(self)), dtype=float)
         stack_g = np.zeros((shape[0], shape[1], len(self)), dtype=float)
         stack_b = np.zeros((shape[0], shape[1], len(self)), dtype=float)
-        # We use this array to track the number of valid images
+        # We use this array to track the number of valid images pixel-wise
         # (we have to use float here, since np.nan only exists for floats)
         # This is necessary so we can correctly account for NaN values
         # that might occur e.g. for Brillouin data.
@@ -109,9 +109,9 @@ class FlBlend:
             stack_b[:, :, ii] = rgb[:, :, 2]
             stack_v[:, :, ii] = np.invert(np.isnan(rgb[:, :, 0]))
 
-        # Get the number of valid images for later normalization
+        # Get the number of valid images per pixel for later normalization
         norm_v = np.nansum(stack_v, axis=2)
-        # Zero valid images means all images were NaN
+        # Zero-valued pixels means all images were NaN at that pixel
         norm_v[norm_v == 0] = np.nan
 
         merged = np.zeros((shape[0], shape[1], 3), dtype=float)
