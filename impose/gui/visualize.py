@@ -147,7 +147,13 @@ class Visualize(QtWidgets.QWidget):
         # get the image item
         img = self.imageView.getImageItem()
         # get the raw data
-        data = np.array(self.imageView.image)[:, :, 0]
+        data = np.array(self.imageView.image)
+        # If self.imageView is empty (e.g. because it was
+        # cleared due to all NaN values) the data array
+        # will be zero-dimensional
+        if data.ndim < 3:
+            return None
+        data = data[:, :, 0]
         # transform for mapping from geometry to data coordinates
         _, tr = roi.getArraySlice(data, img)
         return tr

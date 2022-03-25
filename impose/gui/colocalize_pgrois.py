@@ -87,7 +87,13 @@ class StructureCompositeGroupedROIs(QtCore.QObject):
         # get the image item
         img = self.image_view.getImageItem()
         # get the raw data
-        data = np.array(self.image_view.image)[:, :, 0]
+        data = np.array(self.image_view.image)
+        # If self.imageView is empty (e.g. because it was
+        # cleared due to all NaN values) the data array
+        # will be zero-dimensional
+        if data.ndim < 3:
+            return None
+        data = data[:, :, 0]
         # transform for mapping from geometry to data coordinates
         _, tr = roi.getArraySlice(data, img)
         return tr
@@ -168,6 +174,8 @@ class StructureCompositeGroupedROIs(QtCore.QObject):
                 self.viewbox.addItem(roi)
 
                 tr = vis.get_roi_transform(roi)
+                if tr is None:
+                    continue
                 roi.blockSignals(True)
                 ishape.to_pg_roi(roi, tr)
                 # cosmetics
@@ -180,6 +188,8 @@ class StructureCompositeGroupedROIs(QtCore.QObject):
         """Update all pyqtgraph ROIs with their corresponding geometry data"""
         for sl, gid, roi in self._structur_layer_rois:
             tr = self.get_roi_transform(roi)
+            if tr is None:
+                continue
             sl.geometry[gid][0].to_pg_roi(roi, tr)
         self.structure_changed.emit()
 
@@ -188,6 +198,8 @@ class StructureCompositeGroupedROIs(QtCore.QObject):
         """Update the strucure layer of the all pyqtgraph ROIs"""
         for sl, gid, roi in self._structur_layer_rois:
             tr = self.get_roi_transform(roi)
+            if tr is None:
+                continue
             ishape = pg_roi_to_impose_shape(roi, tr, point_um=sl.point_um)
             sl.geometry[gid][0].__setstate__(ishape.__getstate__())
         self.structure_changed.emit()

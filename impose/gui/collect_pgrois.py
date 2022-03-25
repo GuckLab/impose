@@ -48,7 +48,13 @@ class StructureCompositeROIs(QtCore.QObject):
         # get the image item
         img = self.image_view.getImageItem()
         # get the raw data
-        data = np.array(self.image_view.image)[:, :, 0]
+        data = np.array(self.image_view.image)
+        # If self.imageView is empty (e.g. because it was
+        # cleared due to all NaN values) the data array
+        # will be zero-dimensional
+        if data.ndim < 3:
+            return None
+        data = data[:, :, 0]
         # transform for mapping from geometry to data coordinates
         _, tr = roi.getArraySlice(data, img)
         return tr
@@ -60,6 +66,8 @@ class StructureCompositeROIs(QtCore.QObject):
         # somewhere in `self.structure_composite`.
         layer_shape = self.roi2shape[roi]
         tr = self.get_roi_transform(roi)
+        if tr is None:
+            return
         temp_shape = pg_roi_to_impose_shape(roi, tr, self.current_point_um)
         layer_shape.__setstate__(temp_shape.__getstate__())
 
@@ -94,11 +102,14 @@ class StructureCompositeROIs(QtCore.QObject):
                 name = sh.__class__.__name__
                 rcl, kw = roi_cls[name]
                 roi = rcl(**kw)
+                tr = self.get_roi_transform(roi)
+                if tr is None:
+                    continue
                 if name == "Rectangle":
                     roi.addRotateHandle([1, 0], [0.5, 0.5])
                 self.viewbox.addItem(roi)
                 # Set the state of the ROI to match the given shape
-                sh.to_pg_roi(roi=roi, tr=self.get_roi_transform(roi))
+                sh.to_pg_roi(roi=roi, tr=tr)
                 # Keep a reference of this shape.
                 self.roi2shape[roi] = sh
                 # If the ROI changes, the shape inside the StructureLayer
