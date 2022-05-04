@@ -7,6 +7,8 @@ from PyQt6 import uic, QtCore, QtWidgets
 
 
 class Visualize(QtWidgets.QWidget):
+    image_changed = QtCore.pyqtSignal(np.ndarray)
+
     def __init__(self, *args, **kwargs):
         """Everything concerning image visualization"""
         super(Visualize, self).__init__(*args, **kwargs)
@@ -222,16 +224,18 @@ class Visualize(QtWidgets.QWidget):
         if override_metadata:
             ds.update_metadata(self.__getstate__())
         image = ds.get_image()
-        # If the image contains *only* nans, there is nothing to show
+        self.image_changed.emit(image)
+
         if np.isnan(image).all():
+            # If the image contains *only* nans, there is nothing to show
             self.imageView.clear()
-            return
-        sx, sy = ds.get_pixel_size()
-        # Scaling/Normalization to the x-axis pixel size (y is scaled).
-        self.imageView.setImage(image,
-                                scale=[1, sx/sy],
-                                autoRange=False,
-                                autoLevels=False)
+        else:
+            sx, sy = ds.get_pixel_size()
+            # Scaling/Normalization to the x-axis pixel size (y is scaled).
+            self.imageView.setImage(image,
+                                    scale=[1, sx/sy],
+                                    autoRange=False,
+                                    autoLevels=False)
 
     def update_label_slice(self, state=None):
         """Update label_slice"""

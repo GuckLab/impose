@@ -72,7 +72,7 @@ class FlBlend:
         if len(self) == 0:
             warnings.warn("No image data available for blending!",
                           NoImageDataWarning)
-            image = np.zeros((2, 2))
+            image = np.zeros((2, 2)) * np.nan
         elif len(self) == 1:
             # single images do not need blending
             image = self.images[0].get_rgb()

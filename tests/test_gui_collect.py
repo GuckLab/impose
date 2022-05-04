@@ -5,6 +5,9 @@ from PyQt6 import QtCore, QtWidgets
 
 from impose.gui.main import Impose
 
+from helpers import retrieve_data
+
+
 data_dir = pathlib.Path(__file__).parent / "data"
 
 
@@ -12,6 +15,31 @@ def test_basic(qtbot):
     """Run the program and exit"""
     mw = Impose()
     mw.close()
+
+
+def test_load_bmlab_brillouin_with_nan_data(qtbot, monkeypatch):
+    paths = retrieve_data("fmt_brillouin-h5_bmlab-session_2022.zip")
+
+    mw = Impose()
+    qtbot.addWidget(mw)
+    monkeypatch.setattr(QtWidgets.QFileDialog, "getOpenFileNames",
+                        lambda *args: ([str(paths[0])], None))
+    qtbot.mouseClick(mw.tab_collect.toolButton_add_data,
+                     QtCore.Qt.MouseButton.LeftButton)
+    QtWidgets.QApplication.processEvents(
+        QtCore.QEventLoop.ProcessEventsFlag.AllEvents, 300)
+
+    # select the first entry in the datasets list (nan values)
+    qtbot.mouseClick(mw.tab_collect.tableWidget_paths.cellWidget(0, 0),
+                     QtCore.Qt.MouseButton.LeftButton)
+    # sanity check (no data displayed)
+    assert not mw.tab_collect.widget_struct.isEnabled()
+
+    # select the second entry in the visualization list
+    # (the first entry contains nans, the second entry contains data)
+    item = mw.tab_collect.vis.listWidget_chan.item(1)
+    item.setCheckState(QtCore.Qt.CheckState.Checked)
+    assert mw.tab_collect.widget_struct.isEnabled()
 
 
 def test_load_dataset(qtbot, monkeypatch):

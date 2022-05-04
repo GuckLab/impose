@@ -54,6 +54,8 @@ class Collect(QtWidgets.QWidget):
         self.toolButton_add_polygon.clicked.connect(self.on_shape_add_polygon)
         self.toolButton_add_rectangle.clicked.connect(
             self.on_shape_add_rectangle)
+        # signal for current image is not empty
+        self.vis.image_changed.connect(self.on_image_changed)
 
     @property
     def current_data_source(self):
@@ -141,6 +143,14 @@ class Collect(QtWidgets.QWidget):
         self.vis.set_data_source(self.current_data_source)
         self.update_shape_list()
         self.sc_rois.set_structure_composite(self.current_structure_composite)
+
+    @QtCore.pyqtSlot(np.ndarray)
+    def on_image_changed(self, image):
+        """Handle image changes in self.vis in the other widgets"""
+        if np.isnan(image).all() or self.tableWidget_paths.currentRow() < 0:
+            self.widget_struct.setEnabled(False)
+        else:
+            self.widget_struct.setEnabled(True)
 
     @QtCore.pyqtSlot()
     def on_layer_color_changed(self):
