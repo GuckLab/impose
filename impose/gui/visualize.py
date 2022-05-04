@@ -154,6 +154,11 @@ class Visualize(QtWidgets.QWidget):
         _, tr = roi.getArraySlice(data, img)
         return tr
 
+    def has_data(self):
+        """Whether there is an image currently displayed"""
+        has_data = self.imageView.image is not None
+        return has_data
+
     @QtCore.pyqtSlot()
     def on_channel_selected(self):
         """User changed channel, populate color options
@@ -196,20 +201,21 @@ class Visualize(QtWidgets.QWidget):
 
     def set_data_source(self, data_source):
         """Populates UI with dataset settings"""
-        # save the current state in the old data source
-        if self._data_source is not None:
-            self._data_source.update_metadata(self.__getstate__())
-        # replace the current data source
-        self._data_source = data_source
-        # set the metadata in the UI
-        self.__setstate__(data_source.metadata)
-        # finally update the image
-        self.update_image(override_metadata=False)
-        # hide slicing options if 2d source
-        if len(self.data_source.shape) == 2:
-            self.groupBox_slicing.setVisible(False)
-        else:
-            self.groupBox_slicing.setVisible(True)
+        if data_source is not self.data_source:
+            # save the current state in the old data source
+            if self._data_source is not None:
+                self._data_source.update_metadata(self.__getstate__())
+            # replace the current data source
+            self._data_source = data_source
+            # set the metadata in the UI
+            self.__setstate__(data_source.metadata)
+            # finally update the image
+            self.update_image(override_metadata=False)
+            # hide slicing options if 2d source
+            if len(self.data_source.shape) == 2:
+                self.groupBox_slicing.setVisible(False)
+            else:
+                self.groupBox_slicing.setVisible(True)
 
     @QtCore.pyqtSlot()
     def update_image(self, override_metadata=True):
@@ -224,8 +230,6 @@ class Visualize(QtWidgets.QWidget):
         if override_metadata:
             ds.update_metadata(self.__getstate__())
         image = ds.get_image()
-        self.image_changed.emit(image)
-
         if np.isnan(image).all():
             # If the image contains *only* nans, there is nothing to show
             self.imageView.clear()
@@ -236,6 +240,7 @@ class Visualize(QtWidgets.QWidget):
                                     scale=[1, sx/sy],
                                     autoRange=False,
                                     autoLevels=False)
+        self.image_changed.emit(image)
 
     def update_label_slice(self, state=None):
         """Update label_slice"""

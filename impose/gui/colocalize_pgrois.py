@@ -150,31 +150,29 @@ class StructureCompositeGroupedROIs(QtCore.QObject):
         assert isinstance(cs, StructureComposite)
         # remove all ROIs and structure information
         self.clear()
-        if not cs:
-            # Nothing to display, abort here.
-            return
-        self.active_structure_layer = cs[0]
-        # add new ROIs
-        roi_cls = {
-            "Circle": pg.CircleROI,
-            "Ellipse": pg.EllipseROI,
-            "Polygon": ColocPolyLineROI,
-            "Rectangle": pg.RectROI,
-        }
-        for sl in cs:
-            for ii, (ishape, _) in enumerate(sl.geometry):
-                key = ishape.__class__.__name__
-                roi = roi_cls[key](pos=(0, 0), size=(10, 10))
-                self.viewbox.addItem(roi)
+        if cs and vis.has_data():
+            self.active_structure_layer = cs[0]
+            # add new ROIs
+            roi_cls = {
+                "Circle": pg.CircleROI,
+                "Ellipse": pg.EllipseROI,
+                "Polygon": ColocPolyLineROI,
+                "Rectangle": pg.RectROI,
+            }
+            for sl in cs:
+                for ii, (ishape, _) in enumerate(sl.geometry):
+                    key = ishape.__class__.__name__
+                    roi = roi_cls[key](pos=(0, 0), size=(10, 10))
+                    self.viewbox.addItem(roi)
 
-                tr = vis.get_roi_transform(roi)
-                roi.blockSignals(True)
-                ishape.to_pg_roi(roi, tr)
-                # cosmetics
-                roi.setPen(sl.color, width=1)
-                roi.blockSignals(False)
-                self.append(roi)
-                self._structur_layer_rois.append([sl, ii, roi])
+                    tr = vis.get_roi_transform(roi)
+                    roi.blockSignals(True)
+                    ishape.to_pg_roi(roi, tr)
+                    # cosmetics
+                    roi.setPen(sl.color, width=1)
+                    roi.blockSignals(False)
+                    self.append(roi)
+                    self._structur_layer_rois.append([sl, ii, roi])
 
     def update_roi_geometry(self):
         """Update all pyqtgraph ROIs with their corresponding geometry data"""

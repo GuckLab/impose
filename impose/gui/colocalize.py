@@ -68,6 +68,8 @@ class Colocalize(QtWidgets.QWidget):
         self.dial_translatex.valueChanged.connect(self.on_translate_x)
         self.dial_translatey.valueChanged.connect(self.on_translate_y)
         self.dial_rotate.valueChanged.connect(self.on_rotate)
+        # signal for image update
+        self.vis.image_changed.connect(self.on_image_changed)
 
     @property
     def current_data_source(self):
@@ -235,6 +237,15 @@ class Colocalize(QtWidgets.QWidget):
                       allow_nan=True,
                       indent=1,
                       sort_keys=False)
+
+    @QtCore.pyqtSlot(np.ndarray)
+    def on_image_changed(self, image):
+        """Handle image changes in self.vis in the other widgets"""
+        if np.isnan(image).all() or self.tableWidget_paths.currentRow() < 0:
+            self.widget_struct.setEnabled(False)
+        else:
+            self.widget_struct.setEnabled(True)
+            self.update_ui_from_scheme()
 
     @QtCore.pyqtSlot(int)
     def on_rotate(self, phi_int):

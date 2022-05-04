@@ -1,4 +1,5 @@
 0.2.3
+ - fix: properly handle nan-valued data in colocalize (#36)
  - fix: properly handle nan-valued data in collect (#36)
 0.2.2
  - fix: properly handle nan-valued data (#25)

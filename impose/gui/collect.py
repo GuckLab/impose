@@ -54,7 +54,7 @@ class Collect(QtWidgets.QWidget):
         self.toolButton_add_polygon.clicked.connect(self.on_shape_add_polygon)
         self.toolButton_add_rectangle.clicked.connect(
             self.on_shape_add_rectangle)
-        # signal for current image is not empty
+        # signal for image update
         self.vis.image_changed.connect(self.on_image_changed)
 
     @property
