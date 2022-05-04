@@ -1,7 +1,7 @@
 0.2.3
  - fix: properly handle nan-valued data in colocalize (#36)
  - fix: properly handle nan-valued data in collect (#36)
- - setup: bump bmlab to 0.1.8
+ - setup: bump bmlab to 0.1.8 (#37)
 0.2.2
  - fix: properly handle nan-valued data (#25)
  - fix: correctly open bmlab files with multiple repetitions (#26)
