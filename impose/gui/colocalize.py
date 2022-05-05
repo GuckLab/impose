@@ -105,7 +105,15 @@ class Colocalize(QtWidgets.QWidget):
 
     def add_paths(self, paths):
         for pp in paths:
-            self.session_scheme.append(pp)
+            try:
+                self.session_scheme.append(pp)
+            except FileNotFoundError as e:
+                QtWidgets.QMessageBox.critical(
+                    self,
+                    "Associated data file missing",
+                    f"Failed loading {pp}, because the following file is "
+                    + f" missing: \n\n{e.filename}"
+                )
         self.update_table_paths()
 
     def clear(self):
