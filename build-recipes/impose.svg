@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="15mm"
+   height="15mm"
+   viewBox="0 0 15 15"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   sodipodi:docname="impose.svg"
+   inkscape:export-filename="/home/paul/trepos/impose/docs/logo/impose.png"
+   inkscape:export-xdpi="208.15475"
+   inkscape:export-ydpi="208.15475"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs2">
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Blur"
+       id="filter911">
+      <feGaussianBlur
+         stdDeviation="0.25 0.21"
+         result="blur"
+         id="feGaussianBlur909" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Blur"
+       id="filter911-6">
+      <feGaussianBlur
+         stdDeviation="0.25 0.21"
+         result="blur"
+         id="feGaussianBlur909-7" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="11.2"
+     inkscape:cx="-7.4553571"
+     inkscape:cy="29.375"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="2560"
+     inkscape:window-height="1406"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:pagecheckerboard="1"
+     height="5.16996mm" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-10.742194,-82.129924)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29884px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264942"
+       x="10.314427"
+       y="91.052452"
+       id="text817-3"
+       transform="scale(1.0013476,0.99865416)"><tspan
+         sodipodi:role="line"
+         id="tspan815-2"
+         x="10.314427"
+         y="91.052452"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Ubuntu;-inkscape-font-specification:Ubuntu;letter-spacing:-0.450402px;word-spacing:0px;stroke-width:0.264942"><tspan
+           style="letter-spacing:-0.68885px;word-spacing:0px;fill:#666666;stroke-width:0.264942"
+           id="tspan1502"
+           dx="0">im</tspan><tspan
+           style="letter-spacing:-0.450402px;word-spacing:0px;fill:#d45500;stroke-width:0.264942"
+           id="tspan1510"><tspan
+             style="letter-spacing:-0.423907px;stroke-width:0.264942"
+             id="tspan1545">pose</tspan></tspan></tspan></text>
+  </g>
+</svg>
