@@ -82,17 +82,18 @@ class Impose(QtWidgets.QMainWindow):
                         QtWidgets.QMessageBox.warning(
                             self,
                             "Data file location unknown",
-                            f"At least one file ({e.name}) could not be found "
-                            "on this machine. In the following dialog(s), "
-                            "please select the location(s) of the missing "
-                            "file(s). The search is done recursively "
-                            "(including subdirectories)."
+                            f"At least one file ({e.filename}) could not be "
+                            "found on this machine. In the following "
+                            "dialog(s), please select the location(s) of "
+                            "the missing file(s). The search is done "
+                            "recursively (including subdirectories)."
                         )
                         initial_dialog_shown = True
                     # Let the user choose another search path
                     sdir = QtWidgets.QFileDialog.getExistingDirectory(
                         self,
-                        f"Please select directory tree containing '{e.name}'!"
+                        "Please select directory tree "
+                        f"containing '{e.filename}'!"
                     )
                     if sdir:
                         search_paths.append(sdir)
