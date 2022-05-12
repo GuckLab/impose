@@ -1,6 +1,7 @@
 import json
 import pathlib
 import warnings
+import errno
 
 import numpy as np
 
@@ -12,8 +13,7 @@ from ._version import version
 
 
 class ImposeDataFileNotFoundError(FileNotFoundError):
-    def __init__(self, name, *args, **kwargs):
-        self.name = name
+    def __init__(self, *args, **kwargs):
         super(ImposeDataFileNotFoundError, self).__init__(*args, **kwargs)
 
 
@@ -277,10 +277,11 @@ class ImposeSession:
                     return pp
         else:
             raise ImposeDataFileNotFoundError(
-                name,
+                errno.ENOENT,
                 "Could not find file '{}'".format(name)
                 + (f" (sig '{signature}')" if signature is not None else "")
-                + "!"
+                + "!",
+                name
             )
 
     def clear(self):

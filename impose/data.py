@@ -2,6 +2,7 @@ import warnings
 from collections import OrderedDict
 import copy
 import pathlib
+import errno
 
 import numpy as np
 
@@ -84,7 +85,11 @@ class DataSource:
     def _initialize_from_path(self, path):
         self.path = pathlib.Path(path).resolve()
         if not self.path.exists():
-            raise FileNotFoundError(f"File does not exist: '{self.path}'")
+            raise FileNotFoundError(
+                errno.ENOENT,
+                f"File does not exist: '{self.path}'",
+                self.path
+            )
         # extract the data and metadata
         data_channels, meta_orig = load(path)
         self.data_channels = data_channels
