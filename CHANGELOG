@@ -1,6 +1,12 @@
 0.2.4
+ - fix: properly handle FileNotFounderror (#44)
+ - fix: properly handle bmlab exceptions (#42)
  - enh: reduce complexity of error message if an associated file
    is missing
+ - fix: close bmlab session after loading data (#48)
+ - build: add github action to create installer packages (#31)
+ - build: add Github deploy action
+ - build: pin shapely to fix macOS DMG packages
 0.2.3
  - fix: properly handle nan-valued data in colocalize (#36)
  - fix: properly handle nan-valued data in collect (#36)
