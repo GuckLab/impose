@@ -110,7 +110,7 @@ def load_h5(path):
         # because the Matlab import is just a legacy option
         # and we likely wanted to import a file from BMicro/bmlab
         # (which failed).
-        except Exception:
+        except BaseException:
             raise err
 
     return channels, meta
