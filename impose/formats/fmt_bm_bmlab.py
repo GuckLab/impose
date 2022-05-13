@@ -39,6 +39,8 @@ def load_h5(path):
                     evc.get_data(key)
                 channels[key_prefix + key] = data
 
+        session.clear()
+
         # create a unique signature for this dataset
         p1 = get_valid_source(path)
         p2 = get_session_file_path(p1)
