@@ -87,7 +87,8 @@ class DataSource:
         if not self.path.exists():
             raise FileNotFoundError(
                 errno.ENOENT,
-                f"File does not exist: '{self.path}'",
+                f"Failed loading {self.path}, because the following file is "
+                + f" missing: \n\n{self.path}",
                 self.path
             )
         # extract the data and metadata

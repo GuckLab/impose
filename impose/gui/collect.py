@@ -82,9 +82,8 @@ class Collect(QtWidgets.QWidget):
             except FileNotFoundError as e:
                 QtWidgets.QMessageBox.critical(
                     self,
-                    "Associated data file missing",
-                    f"Failed loading {pp}, because the following file is "
-                    + f" missing: \n\n{e.filename}"
+                    "Associated data file missing or invalid",
+                    e.strerror
                 )
         self.update_table_paths()
 
