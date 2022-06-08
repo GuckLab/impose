@@ -63,7 +63,7 @@ class StructureCompositeStack:
         return np.mean(cx), np.mean(cy)
 
     def append(self, sc):
-        """Append a structure layer"""
+        """Append a structure composite"""
         assert isinstance(sc, StructureComposite)
         self.composites.append(sc)
 
@@ -80,7 +80,7 @@ class StructureCompositeStack:
             raise NotImplementedError("Averaging not implemented yet!")
 
     def rotate(self, dphi, origin_um=None):
-        """Rotate the compoiste stack
+        """Rotate the compoite structure stack
 
         Parameters
         ----------
