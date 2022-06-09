@@ -1,3 +1,4 @@
+import json
 import pathlib
 import pkg_resources
 
@@ -7,7 +8,9 @@ from skimage.color import hsv2rgb
 
 from .. import formats
 from ..geometry import shapes
+from ..session import JSONEncoderFromNumpy
 from ..structure import StructureLayer
+from .._version import version
 
 from .collect_pgrois import StructureCompositeROIs
 from .collect_shape_controls import CollectShapeControls
@@ -34,7 +37,7 @@ class Collect(QtWidgets.QWidget):
         self.shape_control_widgets = []
 
         # disable widget for shape controls initially
-        self.widget_struct.setEnabled(False)
+        self.groupBox_struct.setEnabled(False)
         self.vis.setEnabled(False)
 
         # set horizontal stretch for path list
@@ -48,6 +51,9 @@ class Collect(QtWidgets.QWidget):
         self.toolButton_add_data.clicked.connect(self.on_add_data)
         # signal for user selects new item
         self.tableWidget_paths.cellClicked.connect(self.on_dataset_selected)
+        # signals for import/export buttons
+        self.toolButton_export.clicked.connect(self.on_sc_export)
+        self.toolButton_import.clicked.connect(self.on_sc_import)
         # signals for tool button shapes
         self.toolButton_add_circle.clicked.connect(self.on_shape_add_circle)
         self.toolButton_add_ellipse.clicked.connect(self.on_shape_add_ellipse)
@@ -145,7 +151,7 @@ class Collect(QtWidgets.QWidget):
     @QtCore.pyqtSlot()
     def on_dataset_selected(self):
         """Populates UI with dataset settings"""
-        self.widget_struct.setEnabled(True)
+        self.groupBox_struct.setEnabled(True)
         self.vis.setEnabled(True)
         self.vis.set_data_source(self.current_data_source)
         self.update_shape_list()
@@ -155,9 +161,9 @@ class Collect(QtWidgets.QWidget):
     def on_image_changed(self, image):
         """Handle image changes in self.vis in the other widgets"""
         if np.isnan(image).all() or self.tableWidget_paths.currentRow() < 0:
-            self.widget_struct.setEnabled(False)
+            self.groupBox_struct.setEnabled(False)
         else:
-            self.widget_struct.setEnabled(True)
+            self.groupBox_struct.setEnabled(True)
 
     @QtCore.pyqtSlot()
     def on_layer_color_changed(self):
@@ -170,6 +176,52 @@ class Collect(QtWidgets.QWidget):
         """The shape of a layer changed (or was deleted)"""
         self.sc_rois.update_pg_rois()
         self.update_shape_list()
+
+    @QtCore.pyqtSlot()
+    def on_sc_export(self):
+        sc = self.current_structure_composite
+        # ask user for path
+        pdir = self.settings.value("path/structure-composite")
+        path, _ = QtWidgets.QFileDialog.getSaveFileName(
+            self, "Save structure composite", pdir, "*.impose-composite")
+        if path:
+            path = pathlib.Path(path)
+            if not path.suffix == ".impose-composite":
+                path = path.with_name(path.name + ".impose-composite")
+            self.settings.setValue("path/structure-composite",
+                                   str(path.parent))
+
+            with path.open("w") as fd:
+                state = sc.__getstate__()
+                state["impose"] = {"version": version}
+                json.dump(state, fd,
+                          ensure_ascii=False,
+                          allow_nan=True,
+                          indent=1,
+                          cls=JSONEncoderFromNumpy,
+                          )
+
+    @QtCore.pyqtSlot()
+    def on_sc_import(self):
+        cont = QtWidgets.QMessageBox.question(
+            self,
+            "Replace current composite structure?",
+            "All progress with the current dataset will be lost."
+        )
+        if cont == QtWidgets.QMessageBox.StandardButton.Yes:
+            pdir = self.settings.value("path/structure-composite")
+            path, _ = QtWidgets.QFileDialog.getOpenFileName(
+                self,
+                "Open impose strucure composite",
+                pdir,
+                "*.impose-composite")
+            if path:
+                with pathlib.Path(path).open("r") as fd:
+                    state = json.load(fd)
+                    sc = self.current_structure_composite
+                    sc.__setstate__(state)
+                    self.sc_rois.update_pg_rois()
+                    self.update_shape_list()
 
     @QtCore.pyqtSlot()
     def on_shape_add_circle(self):

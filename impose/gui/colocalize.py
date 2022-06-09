@@ -36,7 +36,7 @@ class Colocalize(QtWidgets.QWidget):
         self._prev_translate_y = 0
 
         # disable widget for shape controls initially
-        self.widget_struct.setEnabled(False)
+        self.groupBox_struct.setEnabled(False)
         self.vis.setEnabled(False)
 
         for tab in [self.tableWidget_paths, self.tableWidget_structures]:
@@ -191,7 +191,7 @@ class Colocalize(QtWidgets.QWidget):
         - Update the structure table
         """
         if self.current_structure_composite:
-            self.widget_struct.setEnabled(True)
+            self.groupBox_struct.setEnabled(True)
             self.vis.setEnabled(True)
             # set available channels in ROI visualization
             self.comboBox_channel.blockSignals(True)
@@ -202,7 +202,7 @@ class Colocalize(QtWidgets.QWidget):
             self.comboBox_channel.blockSignals(False)
             self.update_ui_from_scheme()
         else:
-            self.widget_struct.setEnabled(False)
+            self.groupBox_struct.setEnabled(False)
             self.vis.setEnabled(False)
             self.rois.clear()
 
@@ -249,9 +249,9 @@ class Colocalize(QtWidgets.QWidget):
     def on_image_changed(self, image):
         """Handle image changes in self.vis in the other widgets"""
         if np.isnan(image).all() or self.tableWidget_paths.currentRow() < 0:
-            self.widget_struct.setEnabled(False)
+            self.groupBox_struct.setEnabled(False)
         else:
-            self.widget_struct.setEnabled(True)
+            self.groupBox_struct.setEnabled(True)
             self.update_ui_from_scheme()
 
     @QtCore.pyqtSlot(int)
