@@ -33,13 +33,13 @@ def test_load_bmlab_brillouin_with_nan_data(qtbot, monkeypatch):
     qtbot.mouseClick(mw.tab_collect.tableWidget_paths.cellWidget(0, 0),
                      QtCore.Qt.MouseButton.LeftButton)
     # sanity check (no data displayed)
-    assert not mw.tab_collect.widget_struct.isEnabled()
+    assert not mw.tab_collect.groupBox_struct.isEnabled()
 
     # select the second entry in the visualization list
     # (the first entry contains nans, the second entry contains data)
     item = mw.tab_collect.vis.listWidget_chan.item(1)
     item.setCheckState(QtCore.Qt.CheckState.Checked)
-    assert mw.tab_collect.widget_struct.isEnabled()
+    assert mw.tab_collect.groupBox_struct.isEnabled()
 
 
 def test_load_dataset(qtbot, monkeypatch):
@@ -71,10 +71,10 @@ def test_load_session(qtbot, monkeypatch):
     mw.on_session_open()
 
     # select the first entry in the datasets list
-    assert not mw.tab_collect.widget_struct.isEnabled()
+    assert not mw.tab_collect.groupBox_struct.isEnabled()
     qtbot.mouseClick(mw.tab_collect.tableWidget_paths.cellWidget(0, 0),
                      QtCore.Qt.MouseButton.LeftButton)
-    assert mw.tab_collect.widget_struct.isEnabled()
+    assert mw.tab_collect.groupBox_struct.isEnabled()
 
     # test a label
     label1 = mw.tab_collect.shape_control_widgets[0].comboBox_label
