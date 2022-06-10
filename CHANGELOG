@@ -1,5 +1,7 @@
 0.3.0
  - feat: implement saving and loading of structure composites (#1)
+ - fix: visualization issue with empty data (#47)
+ - fix: editing layers not possible (regression from migration to PyQt6)
 0.2.4
  - fix: properly handle FileNotFounderror (#44)
  - fix: properly handle bmlab exceptions (#42)

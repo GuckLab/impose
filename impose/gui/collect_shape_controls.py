@@ -97,7 +97,7 @@ class CollectShapeControls(QtWidgets.QWidget):
         shape = self.structure_layer.geometry[self.geometry_index][0]
         # The dialog edits the shape in-place
         dlg = dlg_edit_shape.dialog_for_shape(shape, self)
-        dlg.exec_()
+        dlg.exec()
         self.shape_changed.emit()
 
     def remove_empty_layers(self):
