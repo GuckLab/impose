@@ -164,6 +164,7 @@ class Collect(QtWidgets.QWidget):
             self.groupBox_struct.setEnabled(False)
         else:
             self.groupBox_struct.setEnabled(True)
+            self.update_ui_from_scheme()
 
     @QtCore.pyqtSlot()
     def on_layer_color_changed(self):

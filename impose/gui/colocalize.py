@@ -351,5 +351,9 @@ class Colocalize(QtWidgets.QWidget):
             self.update_structure_table()
             # set new ROIs
             self.vis.set_data_source(self.current_data_source)
+            # Scale the current shape according to the scale in the current
+            # data source.
+            self.current_structure_composite.set_scale(
+                point_um=self.current_point_um)
             self.rois.set_structure_composite(self.current_structure_composite,
                                               self.vis)

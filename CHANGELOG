@@ -2,6 +2,8 @@
  - feat: implement saving and loading of structure composites (#1)
  - fix: visualization issue with empty data (#47)
  - fix: editing layers not possible (regression from migration to PyQt6)
+ - fix: initial wrong scaling in colocalize when input data has different
+   pixel sizes along the dimensions
 0.2.4
  - fix: properly handle FileNotFounderror (#44)
  - fix: properly handle bmlab exceptions (#42)
