@@ -230,11 +230,13 @@ class Visualize(QtWidgets.QWidget):
         if override_metadata:
             ds.update_metadata(self.__getstate__())
         image = ds.get_image()
-        if np.isnan(image).all():
-            # If the image contains *only* nans, there is nothing to show
+        sx, sy = ds.get_pixel_size()
+        if (np.isnan(image).all()
+                or np.any(np.array([sx, sy]) == 0)):
+            # If the image contains *only* nans or zero-sized data,
+            # there is nothing to show.
             self.imageView.clear()
         else:
-            sx, sy = ds.get_pixel_size()
             # Scaling/Normalization to the x-axis pixel size (y is scaled).
             self.imageView.setImage(image,
                                     scale=[1, sx/sy],
