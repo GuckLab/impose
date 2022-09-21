@@ -14,11 +14,11 @@ def test_load_bmlab_brillouin():
     assert meta["pixel size y"] == 1
     assert np.isnan(meta["pixel size z"])
     assert meta["shape"] == (3, 5, 1)
-    assert "brillouin_peak_position" in meta["channel hues"]
+    assert "brillouin_shift_f" in meta["channel hues"]
 
     # check data
-    assert "brillouin_peak_position" in data
-    assert data["brillouin_peak_position"].shape == (3, 5, 1)
+    assert "brillouin_shift_f" in data
+    assert data["brillouin_shift_f"].shape == (3, 5, 1)
     assert data["brillouin_peak_position"][2, 3, 0] == 62.28071301762982
     assert meta["signature"] == "25d6ae8774fc29417facc6c9dfe061e6"
 
@@ -32,15 +32,15 @@ def test_load_bmlab_brillouin_2rep():
     assert meta["pixel size y"] == 1
     assert np.isnan(meta["pixel size z"])
     assert meta["shape"] == (3, 5, 1)
-    assert "rep-0_brillouin_peak_position" in meta["channel hues"]
-    assert "rep-1_brillouin_peak_position" in meta["channel hues"]
+    assert "rep-0_brillouin_shift_f" in meta["channel hues"]
+    assert "rep-1_brillouin_shift_f" in meta["channel hues"]
 
     # check data
-    assert "rep-0_brillouin_peak_position" in data
-    assert data["rep-0_brillouin_peak_position"].shape == (3, 5, 1)
+    assert "rep-0_brillouin_shift_f" in data
+    assert data["rep-0_brillouin_shift_f"].shape == (3, 5, 1)
     assert data["rep-0_brillouin_peak_position"][2, 3, 0] == 55.53730853499501
-    assert "rep-1_brillouin_peak_position" in data
-    assert data["rep-1_brillouin_peak_position"].shape == (3, 5, 1)
+    assert "rep-1_brillouin_shift_f" in data
+    assert data["rep-1_brillouin_shift_f"].shape == (3, 5, 1)
     assert data["rep-1_brillouin_peak_position"][2, 3, 0] == 101.47705516241298
 
     assert meta["signature"] == "0f9dfe4cfe549859ac09ec0ead5bf58f"
