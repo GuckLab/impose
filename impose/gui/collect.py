@@ -270,23 +270,24 @@ class Collect(QtWidgets.QWidget):
         self.widget_structures.setUpdatesEnabled(True)
 
     def update_table_paths(self):
+        """Update the list of paths ("Datasets") in the GUI"""
         paths = self.session_scheme.paths
         self.tableWidget_paths.setRowCount(len(paths))
         for row, pp in enumerate(paths):
             for jj, label in enumerate([str(pp), str(row + 1)]):
                 # set pseudo-right elided text with dots on left
-                item = self.tableWidget_paths.item(row, jj)
-                if item is None:
+                widlab = self.tableWidget_paths.cellWidget(row, jj)
+                if widlab is None:
                     # create widget if it does not exist
-                    item = QtWidgets.QLabel()
-                    self.tableWidget_paths.setCellWidget(row, jj, item)
+                    widlab = QtWidgets.QLabel(self)
+                    self.tableWidget_paths.setCellWidget(row, jj, widlab)
                 QtWidgets.QApplication.processEvents(
                     QtCore.QEventLoop.ProcessEventsFlag.AllEvents, 500)
-                f_metrics = item.fontMetrics()
-                s = item.size().width() - 5
+                f_metrics = widlab.fontMetrics()
+                s = widlab.size().width() - 5
                 ellabel = f_metrics.elidedText(
                     label, QtCore.Qt.TextElideMode.ElideLeft, s)
-                item.setText(ellabel)
+                widlab.setText(ellabel)
 
     def update_ui_from_scheme(self):
         # list of paths

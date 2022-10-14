@@ -1,3 +1,6 @@
+0.4.1
+ - fix: exception in Collect/Colocalize tab when using the sliders
+   in the visualization panel (#51)
 0.4.0
  - fix: bump bmlab from 0.2.3 to 0.6.1 (file format changes) (#53)
 0.3.1
