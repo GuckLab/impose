@@ -2,8 +2,17 @@ import shutil
 import tempfile
 import time
 
+# register the mw fixture
+from common_gui import mw
+
+
 TMPDIR = tempfile.mkdtemp(prefix=time.strftime(
     "impose_test_%H.%M_"))
+
+
+__all__ = ["mw"]
+
+pytest_plugins = ["pytest-qt"]
 
 
 def pytest_configure(config):

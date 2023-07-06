@@ -2,15 +2,11 @@ import pathlib
 
 from PyQt6 import QtWidgets
 
-from impose.gui.main import Impose
 
 data_dir = pathlib.Path(__file__).parent / "data"
 
 
-def test_load_session(qtbot, monkeypatch):
-    mw = Impose()
-    qtbot.addWidget(mw)
-
+def test_load_session(mw, qtbot, monkeypatch):
     # Load example session
     example_session = data_dir / "brillouin.impose-session"
     monkeypatch.setattr(QtWidgets.QFileDialog, "getOpenFileName",
@@ -19,4 +15,3 @@ def test_load_session(qtbot, monkeypatch):
 
     # make sure that the path is loaded correctly
     assert mw.tab_coloc.tableWidget_paths.rowCount() == 1
-    mw.close()
