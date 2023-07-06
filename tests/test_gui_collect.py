@@ -14,6 +14,7 @@ data_dir = pathlib.Path(__file__).parent / "data"
 def test_basic(qtbot):
     """Run the program and exit"""
     mw = Impose()
+    qtbot.addWidget(mw)
     mw.close()
 
 
