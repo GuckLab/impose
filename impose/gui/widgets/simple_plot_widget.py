@@ -74,7 +74,7 @@ class SimplePlotWidget(pg.PlotWidget):
     def __init__(self, parent=None, background='w', **kargs):
         # The following code is copied from pg.PlotWidget and instead
         # of PlotItem we use SimplePlotItem.
-        pg.GraphicsView.__init__(self, parent, background=background)
+        super(SimplePlotWidget, self).__init__(parent, background=background)
         self.enableMouse(False)
         self.plotItem = SimplePlotItem(**kargs)
         self.setCentralItem(self.plotItem)

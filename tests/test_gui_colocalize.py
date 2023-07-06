@@ -19,3 +19,4 @@ def test_load_session(qtbot, monkeypatch):
 
     # make sure that the path is loaded correctly
     assert mw.tab_coloc.tableWidget_paths.rowCount() == 1
+    mw.close()

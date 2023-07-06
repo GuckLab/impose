@@ -15,6 +15,7 @@ def test_basic(qtbot):
     """Run the program and exit"""
     mw = Impose()
     qtbot.addWidget(mw)
+    QtWidgets.QApplication.setActiveWindow(mw)
     mw.close()
 
 
@@ -40,6 +41,7 @@ def test_load_bmlab_brillouin_data(qtbot, monkeypatch):
     item = mw.tab_collect.vis.listWidget_chan.item(1)
     item.setCheckState(QtCore.Qt.CheckState.Checked)
     assert mw.tab_collect.groupBox_struct.isEnabled()
+    mw.close()
 
 
 def test_load_bmlab_brillouin_with_nan_data(qtbot, monkeypatch):
@@ -64,6 +66,7 @@ def test_load_bmlab_brillouin_with_nan_data(qtbot, monkeypatch):
     item = mw.tab_collect.vis.listWidget_chan.item(1)
     item.setCheckState(QtCore.Qt.CheckState.Checked)
     assert not mw.tab_collect.groupBox_struct.isEnabled()
+    mw.close()
 
 
 def test_load_dataset(qtbot, monkeypatch):
@@ -82,6 +85,7 @@ def test_load_dataset(qtbot, monkeypatch):
     # make sure the data is loaded correctly
     assert len(mw.tab_collect.session_scheme.paths) == 1
     assert mw.tab_collect.session_scheme.paths[0].samefile(example_data)
+    mw.close()
 
 
 def test_load_session(qtbot, monkeypatch):
@@ -110,3 +114,4 @@ def test_load_session(qtbot, monkeypatch):
     assert sl.point_um == 2
     assert np.allclose(sl.position_um, [36.40899435294992 * 2,
                                         36.53086909469708 * 2])
+    mw.close()
