@@ -1,3 +1,6 @@
+import logging
+import traceback
+
 import numpy as np
 from PyQt6 import QtCore
 import pyqtgraph as pg
@@ -6,6 +9,9 @@ from pyqtgraph import functions as fn
 from ..geometry import pg_roi_to_impose_shape
 from ..geometry.shapes import rotate_around_point
 from ..structure import StructureComposite
+
+
+logger = logging.getLogger(__name__)
 
 
 class StructureCompositeGroupedROIs(QtCore.QObject):
@@ -52,7 +58,8 @@ class StructureCompositeGroupedROIs(QtCore.QObject):
             QtCore.Qt.MouseButton.LeftButton)  # allow clicking
         roi.sigClicked.connect(self.update_structure_geometry)
         self.rois.append(roi)
-        self._initial_states.append(roi.saveState())
+        rstate = roi.saveState()
+        self._initial_states.append(rstate)
 
         # Add rotation handles where appropriate
         if isinstance(roi, pg.RectROI):
@@ -97,34 +104,36 @@ class StructureCompositeGroupedROIs(QtCore.QObject):
         try:
             old_state = self._initial_states[self.rois.index(roi)]
         except ValueError:
-            old_state = {"angle": None, "pos": None}
-        new_state = roi.saveState()
-        # compute the transform from old_state to new_state
-        if old_state["angle"] != new_state["angle"]:
-            rotate_center = self._rotation_center
-            rotate_angle = new_state["angle"] - old_state["angle"]
-            translate = None
+            logger.error(f"Could not find roi {roi} in initial states!")
+            logger.error(traceback.format_exc())
         else:
-            rotate_angle = None
-            rotate_center = None
-            if old_state["pos"] != new_state["pos"]:
-                translate = np.array(
-                    new_state["pos"]) - np.array(old_state["pos"])
-            else:
+            new_state = roi.saveState()
+            # compute the transform from old_state to new_state
+            if old_state["angle"] != new_state["angle"]:
+                rotate_center = self._rotation_center
+                rotate_angle = new_state["angle"] - old_state["angle"]
                 translate = None
-        for ii, rr in enumerate(self.rois):
-            if rr is not roi:
-                rr.blockSignals(True)
-                rr.setState(self._initial_states[ii])
-                # transform the geometry
-                if rotate_angle is not None:
-                    tr = fn.invertQTransform(self._scene_transforms[ii])
-                    center = tr.map(rotate_center)
-                    rr.setAngle(angle=rr.state["angle"] + rotate_angle,
-                                centerLocal=center)
-                elif translate is not None:
-                    rr.translate(translate, snap=False)
-                rr.blockSignals(False)
+            else:
+                rotate_angle = None
+                rotate_center = None
+                if old_state["pos"] != new_state["pos"]:
+                    translate = np.array(
+                        new_state["pos"]) - np.array(old_state["pos"])
+                else:
+                    translate = None
+            for ii, rr in enumerate(self.rois):
+                if rr is not roi:
+                    rr.blockSignals(True)
+                    rr.setState(self._initial_states[ii])
+                    # transform the geometry
+                    if rotate_angle is not None:
+                        tr = fn.invertQTransform(self._scene_transforms[ii])
+                        center = tr.map(rotate_center)
+                        rr.setAngle(angle=rr.state["angle"] + rotate_angle,
+                                    centerLocal=center)
+                    elif translate is not None:
+                        rr.translate(translate, snap=False)
+                    rr.blockSignals(False)
         self.update_structure_geometry()
 
     @QtCore.pyqtSlot(object)
@@ -143,6 +152,7 @@ class StructureCompositeGroupedROIs(QtCore.QObject):
                 self.active_structure_layer = sl
                 break
         else:
+            logger.error(traceback.format_exc())
             raise ValueError("Could not find active structure!")
 
     def set_structure_composite(self, cs, vis):

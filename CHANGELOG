@@ -1,3 +1,6 @@
+0.4.2
+ - fix: workaround for TypeError when moving ROI with mouse
+ - ci: update badge and codecov
 0.4.1
  - fix: exception in Collect/Colocalize tab when using the sliders
    in the visualization panel (#51)
