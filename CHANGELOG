@@ -1,5 +1,6 @@
 0.4.3
  - setup: bump pyqtgraph from 0.12.4 to 0.13.3
+ - setup: require Python 3.9
 0.4.2
  - fix: workaround for TypeError when moving ROI with mouse
  - ci: update badge and codecov

@@ -37,7 +37,7 @@ setup(
                       "scipy>=0.12.0",  # compute size of polygon shape
                       "imageio",  # open image files
                       ],
-    python_requires=">=3.7",
+    python_requires=">=3.9",
     keywords=["image analysis", "biology", "microscopy"],
     classifiers=['Operating System :: OS Independent',
                  'Programming Language :: Python :: 3',
