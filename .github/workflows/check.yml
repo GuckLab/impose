@@ -58,13 +58,13 @@ jobs:
         python -m impose --version
     - name: Test with pytest
       run: |
+        pytest tests
         coverage run --source=impose -m pytest tests
     - name: Lint with flake8
       run: |
         flake8 .
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
-
     - name: Create app and check if it runs (macOS)
       if: runner.os == 'macOS'
       working-directory: ./build-recipes
