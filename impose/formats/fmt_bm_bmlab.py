@@ -1,6 +1,6 @@
 from collections import OrderedDict
 
-from bmlab.session import Session, get_valid_source, get_session_file_path,\
+from bmlab.session import Session, get_valid_source, get_session_file_path, \
     BmlabInvalidFileError, is_session_file
 from bmlab.controllers import EvaluationController
 import h5py
