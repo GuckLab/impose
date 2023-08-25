@@ -1,6 +1,7 @@
 0.4.3
  - fix: only edit/display one structure when changing large composites (#59)
  - enh: improved widget placement in collect and colocalize UI
+ - enh: always display the last dataset when switching to colocalize in UI
  - setup: bump pyqtgraph from 0.12.4 to 0.13.3
  - setup: require Python 3.9
  - BREAKING: build recipe broken for macOS

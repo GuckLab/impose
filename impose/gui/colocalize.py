@@ -114,6 +114,10 @@ class Colocalize(QtWidgets.QWidget):
                     e.strerror
                 )
         self.update_table_paths()
+        if paths:
+            # Display the first dataset
+            self.tableWidget_paths.setCurrentCell(len(paths) - 1, 0)
+            self.on_dataset_selected()
 
     def clear(self):
         self.session_scheme.clear()
@@ -343,6 +347,7 @@ class Colocalize(QtWidgets.QWidget):
                     label, QtCore.Qt.TextElideMode.ElideLeft, s)
                 widlab.setText(ellabel)
 
+    @QtCore.pyqtSlot()
     def update_ui_from_scheme(self):
         """Updates UI with information from self.session_scheme"""
         if self.session_scheme.paths:

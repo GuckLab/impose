@@ -126,6 +126,10 @@ class Impose(QtWidgets.QMainWindow):
         if new == self.tab_coloc:
             self.session.colocalize.update_composite_structures()
             self.tab_coloc.update_ui_from_scheme()
+            if self.tab_coloc.session_scheme.paths:
+                # Select/display the last dataset
+                self.tab_coloc.tableWidget_paths.cellClicked.emit(
+                    len(self.tab_coloc.session_scheme.paths) - 1, 0)
 
 
 def excepthook(etype, value, trace):
