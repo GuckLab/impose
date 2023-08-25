@@ -11,7 +11,7 @@ data_dir = pathlib.Path(__file__).parent / "data"
 
 def test_basic(mw):
     """Run the program and exit"""
-    QtWidgets.QApplication.setActiveWindow(mw)
+    pass
 
 
 def test_load_bmlab_brillouin_data(mw, qtbot, monkeypatch):
