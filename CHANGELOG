@@ -1,4 +1,5 @@
 0.4.3
+ - fix: only edit/display one structure when changing large composites (#59)
  - setup: bump pyqtgraph from 0.12.4 to 0.13.3
  - setup: require Python 3.9
 0.4.2

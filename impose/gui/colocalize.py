@@ -8,7 +8,6 @@ from PyQt6 import uic, QtCore, QtWidgets
 from .. import formats
 
 from .colocalize_pgrois import StructureCompositeGroupedROIs
-from .util import MethodCallRateRestricter
 
 
 class Colocalize(QtWidgets.QWidget):
@@ -52,10 +51,6 @@ class Colocalize(QtWidgets.QWidget):
         # TODO: populate with correct labels
         # menu = QtWidgets.QMenu()
         # menu.addAction('label name', self.on_structure_add)
-
-        self.rate_restricter = MethodCallRateRestricter()
-        self.rate_restricter.add_method(self, self.update_statistics)
-        self.rate_restricter.add_method(self, self.update_structure_layer_view)
 
         # signals
         # user wants to add new dataset(s)

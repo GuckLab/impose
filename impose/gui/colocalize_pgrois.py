@@ -103,12 +103,8 @@ class StructureCompositeGroupedROIs(QtCore.QObject):
         return tr
 
     @QtCore.pyqtSlot(object)
-    def on_change_finished(self, roi, update_structures=True):
+    def on_change_finished(self, roi):
         """Update everything and send signals for structure change
-
-        If `update_structures` is set to False, then the internal
-        structures are not updated and `self.structure_changed` is
-        not emitted.
         """
         try:
             old_state = self._initial_states[self.rois.index(roi)]
@@ -132,6 +128,7 @@ class StructureCompositeGroupedROIs(QtCore.QObject):
                     translate = None
             for ii, rr in enumerate(self.rois):
                 if rr is not roi:
+                    rr.setVisible(True)  # invisible since on_change_happening
                     rr.blockSignals(True)
                     rr.setState(self._initial_states[ii])
                     # transform the geometry
@@ -143,17 +140,22 @@ class StructureCompositeGroupedROIs(QtCore.QObject):
                     elif translate is not None:
                         rr.translate(translate, snap=False)
                     rr.blockSignals(False)
-        if update_structures:
-            self.update_structure_geometry()
+        self.update_structure_geometry()
 
     @QtCore.pyqtSlot(object)
     def on_change_happening(self, roi):
-        """Calls `on_change_finished` with rate-limiting"""
-        now = time.perf_counter()
-        if now - self._last_roi_change > 0.1:
-            # Don't update structures during changes
-            self.on_change_finished(roi, update_structures=False)
-            self._last_roi_change = time.perf_counter()
+        """Called when the user modifies the position or angle of an ROI
+
+        For very large structure composites, calling `on_change_finished`
+        on every change is too time-consuming. The solution here is to only
+        display the chaning structure and not update everything during
+        movement or rotation.
+
+        See also https://github.com/GuckLab/impose/issues/59.
+        """
+        for rr in self.rois:
+            if rr is not roi:
+                rr.setVisible(False)
 
     @QtCore.pyqtSlot(object)
     def on_change_started(self, roi):
