@@ -204,6 +204,7 @@ class Colocalize(QtWidgets.QWidget):
             for key in list(self.current_data_source.data_channels.keys()):
                 self.comboBox_channel.addItem(key, key)
             self.comboBox_channel.blockSignals(False)
+            # Do the actual update
             self.update_ui_from_scheme()
         else:
             self.groupBox_struct.setEnabled(False)
