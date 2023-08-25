@@ -1,3 +1,1 @@
 pyinstaller
-# shapely does not play nice with macOS and pyinstaller
-shapely<2
