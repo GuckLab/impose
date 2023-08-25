@@ -1,4 +1,5 @@
 import logging
+import time
 import traceback
 
 import numpy as np
@@ -32,6 +33,7 @@ class StructureCompositeGroupedROIs(QtCore.QObject):
         self.active_structure_layer = None
         self._point_um = None  # for debugging
         self._structur_layer_rois = []  # keeps track of ROIs for each SL
+        self._last_roi_change = time.perf_counter()  # user changed ROI
 
     def __getitem__(self, index):
         return self.rois[index]
@@ -53,9 +55,10 @@ class StructureCompositeGroupedROIs(QtCore.QObject):
         roi.mouseDragHandler.rotateModifier = None
         roi.sigRegionChangeStarted.connect(self.on_change_started)
         roi.sigRegionChangeFinished.connect(self.on_change_finished)
-        roi.sigRegionChanged.connect(self.on_change_finished)
+        roi.sigRegionChanged.connect(self.on_change_happening)
         roi.setAcceptedMouseButtons(
             QtCore.Qt.MouseButton.LeftButton)  # allow clicking
+        # Clicking on an ROI will trigger its updated view in the GUI.
         roi.sigClicked.connect(self.update_structure_geometry)
         self.rois.append(roi)
         rstate = roi.saveState()
@@ -100,7 +103,13 @@ class StructureCompositeGroupedROIs(QtCore.QObject):
         return tr
 
     @QtCore.pyqtSlot(object)
-    def on_change_finished(self, roi):
+    def on_change_finished(self, roi, update_structures=True):
+        """Update everything and send signals for structure change
+
+        If `update_structures` is set to False, then the internal
+        structures are not updated and `self.structure_changed` is
+        not emitted.
+        """
         try:
             old_state = self._initial_states[self.rois.index(roi)]
         except ValueError:
@@ -134,7 +143,17 @@ class StructureCompositeGroupedROIs(QtCore.QObject):
                     elif translate is not None:
                         rr.translate(translate, snap=False)
                     rr.blockSignals(False)
-        self.update_structure_geometry()
+        if update_structures:
+            self.update_structure_geometry()
+
+    @QtCore.pyqtSlot(object)
+    def on_change_happening(self, roi):
+        """Calls `on_change_finished` with rate-limiting"""
+        now = time.perf_counter()
+        if now - self._last_roi_change > 0.1:
+            # Don't update structures during changes
+            self.on_change_finished(roi, update_structures=False)
+            self._last_roi_change = time.perf_counter()
 
     @QtCore.pyqtSlot(object)
     def on_change_started(self, roi):
