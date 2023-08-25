@@ -2,6 +2,7 @@
  - fix: only edit/display one structure when changing large composites (#59)
  - setup: bump pyqtgraph from 0.12.4 to 0.13.3
  - setup: require Python 3.9
+ - setup: build recipe broken for macOS
 0.4.2
  - fix: workaround for TypeError when moving ROI with mouse
  - ci: update badge and codecov
