@@ -1,3 +1,5 @@
+0.4.4
+ - maintenance release
 0.4.3
  - fix: only edit/display one structure when changing large composites (#59)
  - enh: improved widget placement in collect and colocalize UI
