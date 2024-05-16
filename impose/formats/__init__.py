@@ -15,6 +15,7 @@ from ..util import hashfile
 from .fmt_fl_zeiss import load_czi
 from .fmt_bm_bmlab import load_h5
 from .fmt_bf_generic import load_img
+from .fmt_fl_ometif import load_ometif
 
 
 def load(path):
@@ -72,7 +73,8 @@ def get_signature(path):
 
 suffix_dict = {
     ".czi": load_czi,
-    ".png": load_img,
     ".h5": load_h5,
     ".jpg": load_img,
+    ".png": load_img,
+    ".tif": load_ometif,
 }

@@ -34,11 +34,3 @@ def test_load_czi():
     assert data["mCher"][10, 10, 0] == 1
     assert data["mCher"][205, 227, 0] == 255
     assert data["mCher"][113, 206, 0] == 123
-
-
-if __name__ == "__main__":
-    # Run all tests
-    loc = locals()
-    for key in list(loc.keys()):
-        if key.startswith("test_") and hasattr(loc[key], "__call__"):
-            loc[key]()
