@@ -13,6 +13,9 @@ def main():
             print(__version__)
             sys.exit(0)
 
+    # Set recursion limit to one million
+    sys.setrecursionlimit(10 ** 6)
+
     # Starts the Impose application and handles its life cycle.
     app = QtWidgets.QApplication(sys.argv)
     # set window icon
